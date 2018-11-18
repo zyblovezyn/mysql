@@ -109,7 +109,7 @@ END//
 CALL test.`simpleproc`(@a);
 SELECT @a; 
 
-BEGIN 对mysql变量的连接
+BEGIN 对mysql变量的理解
 -- @a 对mysql 变量的解释
 -- set语句的学习：
 -- 
@@ -239,3 +239,268 @@ END//
 CALL test.account_count_root();
 
 -- 13.1.16 CREATE SERVER Syntax
+CREATE SERVER server_name
+    FOREIGN DATA WRAPPER wrapper_name
+    OPTIONS (OPTION [, OPTION] ...)
+
+OPTION:
+  { HOST CHARACTER-literal
+  | DATABASE CHARACTER-literal
+  | USER CHARACTER-literal
+  | PASSWORD CHARACTER-literal
+  | SOCKET CHARACTER-literal
+  | OWNER CHARACTER-literal
+  | PORT NUMERIC-literal }
+  
+  -- For example:
+  CREATE SERVER s
+  FOREIGN DATA WRAPPER mysql
+  OPTIONS (USER 'Remote',HOST '198.51.100.106',DATABASE 'test');
+  
+  -- Be sure to specify all options nesssary to establish a connection to the server.The user name,host name,and
+  -- database name are mandatory.Other options might be required as well,such as password.
+  
+  -- The data stored in the table can be used when creating a connection to a FEDERATED table:
+  CREATE TABLE t (s1 INT) ENGINE=FEDERATED CONNECTION='s';
+  -- 执行以上语句报错，待处理
+  
+  -- 13.1.17 CREATE TABLE Syntax
+CREATE [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
+    (create_definition,...)
+    [table_options]
+    [partition_options]
+
+CREATE [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
+    [(create_definition,...)]
+    [table_options]
+    [partition_options]
+    [IGNORE | REPLACE]
+    [AS] query_expression
+
+CREATE [TEMPORARY] TABLE [IF NOT EXISTS] tbl_name
+    { LIKE old_tbl_name | (LIKE old_tbl_name) }
+
+create_definition:
+    col_name column_definition
+  | [CONSTRAINT [symbol]] PRIMARY KEY [index_type] (index_col_name,...)
+      [index_option] ...
+  | {INDEX|KEY} [index_name] [index_type] (index_col_name,...)
+      [index_option] ...
+  | [CONSTRAINT [symbol]] UNIQUE [INDEX|KEY]
+      [index_name] [index_type] (index_col_name,...)
+      [index_option] ...
+  | {FULLTEXT|SPATIAL} [INDEX|KEY] [index_name] (index_col_name,...)
+      [index_option] ...
+  | [CONSTRAINT [symbol]] FOREIGN KEY
+      [index_name] (index_col_name,...) reference_definition
+  | CHECK (expr)
+
+column_definition:
+    data_type [NOT NULL | NULL] [DEFAULT default_value]
+      [AUTO_INCREMENT] [UNIQUE [KEY]] [[PRIMARY] KEY]
+      [COMMENT 'string']
+      [COLUMN_FORMAT {FIXED|DYNAMIC|DEFAULT}]
+      [STORAGE {DISK|MEMORY|DEFAULT}]
+      [reference_definition]
+
+data_type:
+    BIT[(LENGTH)]
+  | TINYINT[(LENGTH)] [UNSIGNED] [ZEROFILL]
+  | SMALLINT[(LENGTH)] [UNSIGNED] [ZEROFILL]
+  | MEDIUMINT[(LENGTH)] [UNSIGNED] [ZEROFILL]
+  | INT[(LENGTH)] [UNSIGNED] [ZEROFILL]
+  | INTEGER[(LENGTH)] [UNSIGNED] [ZEROFILL]
+  | BIGINT[(LENGTH)] [UNSIGNED] [ZEROFILL]
+  | REAL[(LENGTH,decimals)] [UNSIGNED] [ZEROFILL]
+  | DOUBLE[(LENGTH,decimals)] [UNSIGNED] [ZEROFILL]
+  | FLOAT[(LENGTH,decimals)] [UNSIGNED] [ZEROFILL]
+  | DECIMAL[(LENGTH[,decimals])] [UNSIGNED] [ZEROFILL]
+  | NUMERIC[(LENGTH[,decimals])] [UNSIGNED] [ZEROFILL]
+  | DATE
+  | TIME
+  | TIMESTAMP
+  | DATETIME
+  | YEAR
+  | CHAR[(LENGTH)]
+      [CHARACTER SET charset_name] [COLLATE collation_name]
+  | VARCHAR(LENGTH)
+      [CHARACTER SET charset_name] [COLLATE collation_name]
+  | BINARY[(LENGTH)]
+  | VARBINARY(LENGTH)
+  | TINYBLOB
+  | BLOB[(LENGTH)]
+  | MEDIUMBLOB
+  | LONGBLOB
+  | TINYTEXT
+      [CHARACTER SET charset_name] [COLLATE collation_name]
+  | TEXT[(LENGTH)]
+      [CHARACTER SET charset_name] [COLLATE collation_name]
+  | MEDIUMTEXT
+      [CHARACTER SET charset_name] [COLLATE collation_name]
+  | LONGTEXT
+      [CHARACTER SET charset_name] [COLLATE collation_name]
+  | ENUM(value1,value2,value3,...)
+      [CHARACTER SET charset_name] [COLLATE collation_name]
+  | SET(value1,value2,value3,...)
+      [CHARACTER SET charset_name] [COLLATE collation_name]
+  | spatial_type
+
+index_col_name:
+    col_name [(LENGTH)] [ASC | DESC]
+
+index_type:
+    USING {BTREE | HASH}
+
+index_option:
+    KEY_BLOCK_SIZE [=] VALUE
+  | index_type
+  | WITH PARSER parser_name
+  | COMMENT 'string'
+
+reference_definition:
+    REFERENCES tbl_name (index_col_name,...)
+      [MATCH FULL | MATCH PARTIAL | MATCH SIMPLE]
+      [ON DELETE reference_option]
+      [ON UPDATE reference_option]
+
+reference_option:
+    RESTRICT | CASCADE | SET NULL | NO ACTION | SET DEFAULT
+
+table_options:
+    table_option [[,] table_option] ...
+
+table_option:
+    AUTO_INCREMENT [=] VALUE
+  | AVG_ROW_LENGTH [=] VALUE
+  | [DEFAULT] CHARACTER SET [=] charset_name
+  | CHECKSUM [=] {0 | 1}
+  | [DEFAULT] COLLATE [=] collation_name
+  | COMMENT [=] 'string'
+  | CONNECTION [=] 'connect_string'
+  | {DATA|INDEX} DIRECTORY [=] 'absolute path to directory'
+  | DELAY_KEY_WRITE [=] {0 | 1}
+  | ENGINE [=] engine_name
+  | INSERT_METHOD [=] { NO | FIRST | LAST }
+  | KEY_BLOCK_SIZE [=] VALUE
+  | MAX_ROWS [=] VALUE
+  | MIN_ROWS [=] VALUE
+  | PACK_KEYS [=] {0 | 1 | DEFAULT}
+  | PASSWORD [=] 'string'
+  | ROW_FORMAT [=] {DEFAULT|DYNAMIC|FIXED|COMPRESSED|REDUNDANT|COMPACT}
+  | TABLESPACE tablespace_name [STORAGE {DISK|MEMORY|DEFAULT}]
+  | UNION [=] (tbl_name[,tbl_name]...)
+
+partition_options:
+    PARTITION BY
+        { [LINEAR] HASH(expr)
+        | [LINEAR] KEY [ALGORITHM={1|2}] (column_list)
+        | RANGE{(expr) | COLUMNS(column_list)}
+        | LIST{(expr) | COLUMNS(column_list)} }
+    [PARTITIONS num]
+    [SUBPARTITION BY
+        { [LINEAR] HASH(expr)
+        | [LINEAR] KEY [ALGORITHM={1|2}] (column_list) }
+      [SUBPARTITIONS num]
+    ]
+    [(partition_definition [, partition_definition] ...)]
+
+partition_definition:
+    PARTITION partition_name
+        [VALUES
+            {LESS THAN {(expr | value_list) | MAXVALUE}
+            |
+            IN (value_list)}]
+        [[STORAGE] ENGINE [=] engine_name]
+        [COMMENT [=] 'string' ]
+        [DATA DIRECTORY [=] 'data_dir']
+        [INDEX DIRECTORY [=] 'index_dir']
+        [MAX_ROWS [=] max_number_of_rows]
+        [MIN_ROWS [=] min_number_of_rows]
+        [TABLESPACE [=] tablespace_name]
+        [NODEGROUP [=] node_group_id]
+        [(subpartition_definition [, subpartition_definition] ...)]
+
+subpartition_definition:
+    SUBPARTITION logical_name
+        [[STORAGE] ENGINE [=] engine_name]
+        [COMMENT [=] 'string' ]
+        [DATA DIRECTORY [=] 'data_dir']
+        [INDEX DIRECTORY [=] 'index_dir']
+        [MAX_ROWS [=] max_number_of_rows]
+        [MIN_ROWS [=] min_number_of_rows]
+        [TABLESPACE [=] tablespace_name]
+        [NODEGROUP [=] node_group_id]
+
+query_expression:
+    SELECT ...   (SOME valid SELECT OR UNION statement)
+    
+ -- by default,tables are created in the default database.suing the InnoDB storage engine.An error occurs
+ -- if the table exists,if there is no default database,or if the database does not exists.
+ 
+ TEMPORARY TABLES
+ -- you can use the TEMPORARY keyword when creating a table.A TEMPORARY table is visible obly whitin 
+ -- the currently session,and is droped automatically when session is closed.
+ 
+ Cloning OR Copying a TABLE
+ 1.like
+ -- Use CREATE TABLE ... LIKE to craete an empty table based on the definotion of another table,including
+ -- any column and indexes defined in the original table.
+ CREATE TABLE new_tbl LIKE orig_tbl;
+ 2.[AS] query_expression
+ -- To create table from another,add a SELECT statement at the end of the CREATE TABLE statement.
+ CREATE TABLE new_tbl AS SELECT * FROM orig_tbl;
+ 
+ 3.IGNORE|REPLACE
+ -- The IGNORE and REPLACE options indicate how to handle rows that duplicate unique key values
+ -- when copying a table using a SELECT statement.
+ 
+ COLUMN DATA TYPES AND Attributes
+ 
+ -- There is a hard limit of 4096 columns per table,but the effictive maximum may be less for a given table
+ -- and depends on the factors.
+ 
+ data_type
+ 
+ -- Some attributes do not apply to all data types. AUTO_INCREMENT applies only to integer and floating-point type
+ -- DEFAULT does not apply to the BLOB or TEXT types.
+ 
+ -- Character data types (CHAR, VARCHAR, TEXT) can include CHARACTER SET and COLLATE attributes to specify 
+ -- the character set and collation for the column.
+ CREATE TABLE t (c CHAR(20)) CHARACTER SET utf8 COLLATION utf8_bin;
+ 
+ -- For CHAR, VARCHAR, BINARY, and VARBINARY columns, indexes can be created that use only the 
+ -- leading part of column values, using col_name(length) syntax to specify an index prefix length.
+ -- BLOB and TEXT columns also can be indexed, but a prefix length must be given. 
+ -- Prefix lengths are given in characters for nonbinary string types and in bytes for binary string types. 
+ -- That is, index entries consist of the first length characters of each column value for 
+ -- CHAR, VARCHAR, and TEXT columns, and the first length bytes of each column value for 
+ -- BINARY, VARBINARY, and BLOB columns. 
+ -- Indexing only a prefix of column values like this can make the index file much smaller. 
+ 
+ -- Only the InnoDB and MyISAM storage engines support indexing on BLOB and TEXT columns.For example:
+ CREATE TABLE test (blob_col BLOB,INDEX(blob_col(10)));
+ 
+ -- In MySQL 5.5, only the InnoDB, MyISAM, and MEMORY storage engines support indexes 
+ -- on columns that can have NULL values. In other cases, you must declare 
+ -- indexed columns as NOT NULL or an error results.
+ 
+ -- AUTO_INCREMENT sequences begin with 1.
+ 
+ SELECT LAST_INSERT_ID();
+ SELECT mysql_insert_id() -- 报错，待处理
+ -- If the NO_AUTO_VALUE_ON_ZERO SQL mode is enabled, you can store 0 
+ -- in AUTO_INCREMENT columns as 0 without generating a new sequence value。
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ --
+ 
+  
+
+  
