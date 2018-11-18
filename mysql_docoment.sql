@@ -491,16 +491,38 @@ query_expression:
  -- If the NO_AUTO_VALUE_ON_ZERO SQL mode is enabled, you can store 0 
  -- in AUTO_INCREMENT columns as 0 without generating a new sequence value。
  
+ -- To make MySQL compatible with some ODBC applications, you can find the 
+ -- AUTO_INCREMENT value for the last inserted row with the following query:
+ SELECT * FROM tbl_name WHERE auto_col IS NULL;
  
+ SHOW CREATE TABLE test;
+ SHOW FULL COLUMNS FROM test; 
  
+ STORAGE
+ -- For NDB tables, it is possible to specify whether the column is stored on disk 
+ -- or in memory by using a STORAGE clause. STORAGE DISK causes the column to be 
+ -- stored on disk, and STORAGE MEMORY causes in-memory storage to be used. 
+ -- The CREATE TABLE statement used must still include a TABLESPACE clause:
+ CREATE TABLE t1 (
+	c1 INT STORAGE DISK,
+	c2 INT STORAGE MEMORY
+	) ENGINE NDB;
+-- 错误代码： 1286 	Unknown storage engine 'ndb'	
+CREATE TABLE t1(
+	c1 INT STORAGE DISK,
+	c2 INT STORAGE MEMORY
+	) TABLESPACE ts_1 ENGINE NDB;
  
- 
- 
- 
- 
- 
- --
- 
+INDEXES AND FOREIGN KEYS
+
+-- PRIMARY KEY
+-- A table can have obly one PRIMARY KEY.The primary key column must NOT NULL.
+
+SHOW INDEXES FROM test;
+-- 2018-11-18 A UNIQUE index creates a constraint such that all values in the index must be distinct. An error occurs if you try to add a new row with a key value that matches an existing row. For all engines, a UNIQUE index permits multiple NULL values for columns that can contain NULL. If you specify a prefix value for a column in a UNIQUE index, the column values must be unique within the prefix length.
+
+
+
   
 
   
