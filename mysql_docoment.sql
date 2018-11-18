@@ -519,6 +519,14 @@ INDEXES AND FOREIGN KEYS
 -- A table can have obly one PRIMARY KEY.The primary key column must NOT NULL.
 
 SHOW INDEXES FROM test;
+
+-- Integer Type 
+-- Type	Storage(Bytes)	Minimun Value Signed Minimun Value Unsigned Maximum Value Signed Maximum Value Unsigned
+--  tinyint       1              -128                  0		      127                 255
+--  smallint	  2              -32768                0                      32767 		  65535
+--  mediumint     3              -8388608              0                      8388607             16777215
+--  int           4              -2147473648           0                      2147483647          4294967295
+--  bigint        8              -2**63                0                      2**63-1             2**64-1
 -- 2018-11-18 A UNIQUE index creates a constraint such that all values in the index must be distinct. An error occurs if you try to add a new row with a key value that matches an existing row. For all engines, a UNIQUE index permits multiple NULL values for columns that can contain NULL. If you specify a prefix value for a column in a UNIQUE index, the column values must be unique within the prefix length.
 
 
