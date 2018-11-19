@@ -38,7 +38,7 @@ SELECT * FROM post WHERE post.id IN (1,2,3,4)
 -- 将结果返回给客户端。
 
 
-11
+
 
 
 
