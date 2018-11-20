@@ -1,4 +1,4 @@
---           mysql document        --
+-------------------- mysql document -------------------- 
 BEGIN -- 1
 
 END -- 1 
