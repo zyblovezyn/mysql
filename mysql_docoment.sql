@@ -1,6 +1,51 @@
 --           mysql document        --
+BEGIN -- 1
 
--- 12 Function and Operator Reference
+END -- 1 
+
+BEGIN -- 2
+
+END -- 2 
+
+BEGIN -- 3
+
+END -- 3 
+
+BEGIN -- 4
+
+END -- 4 
+
+BEGIN -- 5
+
+END -- 5 
+
+BEGIN -- 6
+
+END -- 6 
+
+BEGIN -- 7
+
+END -- 7 
+
+BEGIN -- 8
+
+END -- 8 
+
+BEGIN -- 9
+
+END -- 9
+
+BEGIN -- 10
+
+END -- 10 
+
+BEGIN -- 11
+
+END -- 11 
+
+BEGIN -- 12 Function and Operator Reference
+
+BEGIN -- all function
 -- Name    Description
 -- ABS()	Return the absolute value
 -- ACOS()	Return the arc cosine
@@ -317,6 +362,8 @@
 -- Y()	Return Y coordinate of Point
 -- YEAR()	Return the year
 -- YEARWEEK()	Return the year and week
+END
+
 
 SELECT 1 + '1';
 SELECT CONCAT(2,' test');
@@ -333,7 +380,7 @@ SELECT '18015376320243458' = 18015376320243458;
 SELECT '18015376320243459' = 18015376320243459;
 SELECT '18015376320243459'+0.0;
 
--- 12.5 String Functions
+BEGIN -- 12.5 String Functions
 -- Name	Description
 -- ASCII()	Return numeric value of left-most character
 -- BIN()	Return a string containing binary representation of a number
@@ -389,7 +436,7 @@ SELECT '18015376320243459'+0.0;
 -- UCASE()	Synonym for UPPER()
 -- UNHEX()	Return a string containing hex representation of a number
 -- UPPER()	Convert to uppercase
-
+END
 -- For functions that operate on string positions,the first position is numbered.
 SELECT ASCII('2');
 SELECT ASCII(2);
@@ -427,6 +474,88 @@ SELECT FIELD('Gg', 'Aa', 'Bb', 'Cc', 'Dd', 'Ff');
 
 SELECT FIND_IN_SET('b','a,b,c,d');
 
+-- HEX(str), HEX(N)
+SELECT X'616263',HEX('abc'),UNHEX(HEX('abc'));
+
+SELECT HEX(255),CONV(HEX(255),16,10);
+
+-- INSERT(str,pos,len,newstr)
+SELECT INSERT('Quadratic',3,4,'What');
+SELECT INSERT('Quadratic',-1,4,'What');
+SELECT INSERT('Quadratic',3,100,'What');
+
+-- INSTR(str,substr)
+SELECT INSTR('footbarbar','bar');
+SELECT INSTR('$12,1233,123,123',',');
+SELECT INSTR('xbar','foobar');
+-- LEFT(str,len)
+SELECT LEFT('foobarbar',5);
+
+-- LENGTH(str) return the length of the str,measured in bytes.
+SELECT LENGTH('test');
+
+-- LOAD_FILE(file_name)
+UPDATE t SET blob_col=LOAD_FILE('/tmp/picture')
+WHERE id=1
+
+-- LOCATE(substr,str), LOCATE(substr,str,pos)
+SELECT LOCATE('bar','foobarbar');
+SELECT LOCATE('xbar','foobarbar');
+SELECT LOCATE('bar','foobarbar',5);
+
+-- LOWER()
+SET @str=BINARY 'New York';
+SELECT LOWER(@str),LOWER(CONVERT(@str USING latin1));
+
+-- LTRIM(str)
+SELECT LTRIM('   barbar');
+
+-- OCT(N)=CONV(N,from_base,to_base)
+SELECT OCT(12);
+
+-- POSITION(substr IN str) is a synonym for LOCATE(substr,str).
+
+-- QUOTE(str)
+SELECT QUOTE('Don\'t!'),QUOTE(NULL);
+
+-- REPEAT(str,count)
+SELECT REPEAT('MySql',3);
+
+-- REPLACE(str,from_str,to_str)
+SELECT REPLACE('www.mysql.com','w','Ww');
+
+-- REVERSE(str)
+SELECT REVERSE('abc');
+
+-- RIGHT(str,len)
+SELECT RIGHT('foobarbar',4);
+
+-- RPAD(str,len,padstr)
+SELECT RPAD('hi',5,'?');
+SELECT RPAD('hi',1,'?');
+
+-- RTRIM(str)
+SELECT RTRIM('barbar   ');
+
+-- SPACE(N)
+SELECT SPACE(6);
+
+-- SUBSTRING(str,pos), SUBSTRING(str FROM pos), SUBSTRING(str,pos,len), SUBSTRING(str FROM pos FOR len)
+SELECT SUBSTRING('Quadratically',5);
+SELECT SUBSTRING('foobarbar' FROM 4);
+SELECT SUBSTRING('Quadratically',5,6);
+SELECT SUBSTRING('Sakila', -3);
+SELECT SUBSTRING('Sakila',-5,3);
+SELECT SUBSTRING('Sakila' FROM -4 FOR 2);
+
+-- SUBSTRING_INDEX(str,delim,count)
+SELECT SUBSTRING_INDEX('www.mysql.com','.',2);
+SELECT SUBSTRING_INDEX('www.mysql.com','.',-2);
+
+
+END -- 12
+
+BEGIN -- 13 SQL Statement Syntax
 
 -- 13.1.13 CREATE INDEX Syntax
 -- 创建索引index 语句
@@ -961,4 +1090,34 @@ SHOW INDEXES FROM test;
 ALTER TABLE tbl_name AUTO_INCREMENT=N,N>maximum number IN the table.
 -- The TABLESPACE and STORAGE table options are employed only with NDBCLUSTER tables. 
 
+END -- 13 SQL Statement Syntax end
 
+BEGIN -- 14
+
+END -- 14 The InnoDB Storage Engine end
+
+BEGIN -- 15
+
+END -- 15
+
+BEGIN -- 16
+
+END -- 16 
+
+BEGIN -- 17
+
+END -- 17 
+
+BEGIN -- 18
+
+END -- 18 
+
+BEGIN -- 19
+
+END -- 19 
+
+BEGIN -- 20
+
+END -- 20 
+
+-- all end
