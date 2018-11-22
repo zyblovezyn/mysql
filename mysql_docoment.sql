@@ -436,7 +436,8 @@ BEGIN -- 12.5 String Functions
 -- UCASE()	Synonym for UPPER()
 -- UNHEX()	Return a string containing hex representation of a number
 -- UPPER()	Convert to uppercase
-END
+END -- 12.5 String Functions
+
 -- For functions that operate on string positions,the first position is numbered.
 SELECT ASCII('2');
 SELECT ASCII(2);
@@ -550,10 +551,70 @@ SELECT SUBSTRING('Sakila' FROM -4 FOR 2);
 
 -- SUBSTRING_INDEX(str,delim,count)
 SELECT SUBSTRING_INDEX('www.mysql.com','.',2);
-SELECT SUBSTRING_INDEX('www.mysql.com','.',-2);
+
+-- UNHEX(str) str is hexadecimal digital characters
+SELECT UNHEX('4D7953514C');
+SELECT X'4D7953514C';
+SELECT UNHEX(HEX('string'));
+SELECT HEX(UNHEX('1267'));
+SELECT UNHEX('GG');
+
+BEGIN -- 12.5.1 String Comparison Functions
+
+-- Name	Description
+-- LIKE	Simple pattern matching
+-- NOT LIKE	Negation of simple pattern matching
+-- STRCMP()	Compare two strings
+SELECT 'ä' LIKE 'ae' COLLATE latin1_german2_ci;
+SELECT 'ä' = 'ae' COLLATE latin1_german2_ci;
+SELECT 'a'='a','a' LIKE 'a ';
+
+-- % matches any number of characters, even zero characters.
+-- _matches exactly one character.
+SELECT 'David!' LIKE 'David_';
+SELECT 'David!' LIKE '%D%v%'
+
+-- \% matches one % character
+-- \_ matches one _ character
+SELECT 'David!' LIKE 'David\_';
+SELECT 'David_' LIKE 'David\_';
+
+SELECT 'David_' LIKE 'David|_' ESCAPE '|';
+
+SELECT 'abc' LIKE BINARY 'ABC';
+
+SELECT 10 LIKE '1%';
+
+CREATE TABLE foo (bar VARCHAR(10));
+
+INSERT INTO foo VALUES (NULL),(NULL);
+
+SELECT COUNT(*) FROM foo WHERE bar LIKE '%baz%';
+
+SELECT COUNT(*) FROM foo WHERE bar NOT LIKE '%baz%' OR
+bar IS NULL;
+
+STRCMP(exp1,exp2)
+-- exp1 > exp2       1
+-- exp1 = exp2       0	
+-- exp1 < exp2       -1
+
+SELECT STRCMP('text','text2');
+SELECT STRCMP('test2','test');
+SELECT STRCMP('test','test');
+
+END -- 12.5.1 String Comparison Functions
+
+BEGIN -- 12.5.2 Regular Expressions
+
+-- char和varchar的字符比较中，是忽略大小写与最后的空格的，如下:
+SELECT 'a'='a ' , 'a'='A' , 'a'='A ';
+-- 而binary及varbinary的字节比较中，所有的信息都不会被忽略
 
 
-END -- 12
+
+END -- 12.5.2 Regular Expressions
+END -- 12chp
 
 BEGIN -- 13 SQL Statement Syntax
 
@@ -1088,8 +1149,7 @@ SHOW INDEXES FROM test;
 -- Index values are always stored in asccending order.
 
 ALTER TABLE tbl_name AUTO_INCREMENT=N,N>maximum number IN the table.
--- The TABLESPACE and STORAGE table options are employed only with NDBCLUSTER tables. 
-
+-- Hashes one or more columns to create a key for placing and locating rows.
 END -- 13 SQL Statement Syntax end
 
 BEGIN -- 14
