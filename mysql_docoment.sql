@@ -954,9 +954,208 @@ SELECT FROM_UNIXTIME(1447430881);
 SELECT FROM_UNIXTIME(1447430881)+0;
 SELECT FROM_UNIXTIME(UNIX_TIMESTAMP(),'%Y %D %M %h:%i:%s %x');
 
+SELECT HOUR('10:05:03');
+SELECT HOUR('272:59:59');
+
+SELECT LAST_DAY('2003-02-05');
+SELECT LAST_DAY('2004-02-05');
+SELECT LAST_DAY('2004-01-01 01:01:01');
+SELECT LAST_DAY('2003-03-32');
+
+SELECT MAKEDATE(2011,31),MAKEDATE(2011,32);
+SELECT MAKEDATE(2011,365),MAKEDATE(2014,365);
+SELECT MAKEDATE(2011,0);
+
+SELECT MAKETIME(12,15,30);
+
+SELECT MICROSECOND('12:00:00.123456');
+SELECT MICROSECOND('2009-12-31 23:59:59.000010');
+
+SELECT MINUTE('2008-02-03 10:05:03');
+
+SELECT MONTH('2008-02-03');
+
+SELECT MONTHNAME('2008-02-03');
+
+SELECT NOW();
+SELECT NOW()+0;
+
+SELECT NOW(),SLEEP(2),NOW();
+
+SELECT SYSDATE(),SLEEP(2),SYSDATE();
+
+SELECT PERIOD_ADD(200801,2);
+
+SELECT PERIOD_DIFF(200802,200703);
+
+SELECT QUARTER(NOW());
+
+SELECT SECOND(2378);
+
+SELECT SEC_TO_TIME(2378);
+SELECT SEC_TO_TIME(2378)+0;
+
+-- STR_TO_DATE(STR,FORMAT)
+-- This is the inverse of the DATE_FORMAT() function.
+SELECT STR_TO_DATE('01,05,2013','%d,%m,%Y');
+SELECT STR_TO_DATE('May 1,2013','%M %d,%Y');
+
+SELECT STR_TO_DATE('a09:30:17','a%h:%i:%s');
+SELECT STR_TO_DATE('a09:30:17','%h:%i:%s');
+SELECT STR_TO_DATE('09:30:17a','%h:%i:%s');
+
+SELECT STR_TO_DATE('abc','abc');
+SELECT STR_TO_DATE('9','%m');
+SELECT STR_TO_DATE('9','%s');
+
+SET sql_mode='';
+SELECT STR_TO_DATE('15:35:00','%H:%i:%s');
+
+SET sql_mode='no_zero_in_date';
+SELECT STR_TO_DATE('15:35:00','%h:%i:%s');
+SHOW WARNINGS;
+
+-- SUBDATE is synonym of DATE_SUB() function.
+SELECT DATE_SUB('2008-01-02',INTERVAL 31 DAY);
+SELECT SUBDATE('2008-01-02',INTERVAL 31 DAY);
+
+SELECT TIME(NOW());
+SELECT TIME('2008-01-01 01:02:03.123456');
+
+SELECT TIMEDIFF('2000:01:01 00:00:00','2000:01:01 00:00:00.000001');
+SELECT TIMEDIFF('2008-12-31 23:59:59.000001','2008-12-30 01:01:01.000001');
+
+-- TIMESTAMPADD(unit,interval,datetime_expr)
+SELECT TIMESTAMPADD(MINUTE,1,'2003-01-02');
+SELECT TIMESTAMPADD(WEEK,1,'2003-01-02');
+
+-- TIMESTAMPDIFF(unit,datetime_expr1,datetime_expr2)
+-- Returns datetime_expr2 − datetime_expr1, where datetime_expr1 and datetime_expr2 are date or datetime expressions
+SELECT TIMESTAMPDIFF(MONTH,'2003-02-01','2003-05-01');
+SELECT TIMESTAMPDIFF(YEAR,'2002-05-01','2001-01-01');
+SELECT TIMESTAMPDIFF(MINUTE,'2003-02-01','2003-05-01 12:05:55');
+
+SELECT TIME_TO_SEC('22:23:00');
+SELECT TIME_TO_SEC('00:39:38');
+
+SELECT TO_DAYS(950501);
+SELECT TO_DAYS('2007-10-07');
+
+SELECT UNIX_TIMESTAMP();
+
 END -- examples
 
 END -- 12.7 Date and Time Functions
+
+BEGIN -- 12.8 What Calendar Is Used By MySQL?
+
+-- MySQL uses what is known as a proleptic Gregorian calendar.
+
+END -- 12.8 What Calendar Is Used By MySQL?
+
+BEGIN -- 12.9 Full-Text Search Functions
+
+-- MySQL has support for full-text indexing and searching:
+
+-- A full-text index in MySQL is an index of type FULLTEXT.
+
+-- Full-text indexes can be used only with MyISAM tables. 
+-- (In MySQL 5.6 and up, they can also be used with InnoDB 
+-- tables.) Full-text indexes can be created only for 
+-- CHAR, VARCHAR, or TEXT columns.
+
+-- A FULLTEXT index definition can be given in the 
+-- CREATE TABLE statement when a table is created, 
+-- or added later using ALTER TABLE or CREATE INDEX.
+
+-- For large data sets, it is much faster to load your 
+-- data into a table that has no FULLTEXT index and 
+-- then create the index after that, than to load data 
+-- into a table that has an existing FULLTEXT index.
+
+CREATE TABLE articles(
+	id INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	title VARCHAR(200),
+	body TEXT,
+	FULLTEXT(title,body)
+)ENGINE=INNODB;
+
+INSERT INTO articles (title,body) VALUES
+        ('MySQL Tutorial','DBMS stands for DataBase ...'),
+        ('How To Use MySQL Well','After you went through a ...'),
+        ('Optimizing MySQL','In this tutorial we will show ...'),
+        ('1001 MySQL Tricks','1. Never run mysqld as root. 2. ...'),
+        ('MySQL vs. YourSQL','In the following database comparison ...'),
+        ('MySQL Security','When configured properly, MySQL ...');
+        
+SELECT * FROM articles WHERE MATCH(title,body) 
+AGAINST('database' IN NATURAL LANGUAGE MODE);
+
+SELECT COUNT(*) FROM articles WHERE 
+MATCH(title,body)
+AGAINST('database' IN NATURAL LANGUAGE MODE);
+
+SELECT COUNT(
+IF(
+MATCH(title,body) AGAINST ('database' IN NATURAL LANGUAGE MODE)
+,1
+,NULL)
+)
+FROM articles;
+
+-- IF(expr,if_true_expr,if_false_expr)
+
+BEGIN -- 12.9.1 Natural Language Full-Text Searches
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+END
+BEGIN -- 12.9.2 Boolean Full-Text Searches
+END
+BEGIN -- 12.9.3 Full-Text Searches with Query Expansion
+END
+BEGIN -- 12.9.4 Full-Text Stopwords
+END
+BEGIN -- 12.9.5 Full-Text Restrictions
+END
+BEGIN -- 12.9.6 Fine-Tuning MySQL Full-Text Search
+END
+BEGIN -- 12.9.7 Adding a Collation for Full-Text Indexing
+END
+
+END -- 12.9 Full-Text Search Functions
 
 END -- 12chp
 
