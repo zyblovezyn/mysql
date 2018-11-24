@@ -383,7 +383,7 @@ SELECT '18015376320243459'+0.0;
 
 END -- example
 
-BEGIN -- 12.5 String Functions
+BEGIN -- 12.5 String Functions ok
 
 BEGIN -- String Functions
 -- Name	Description
@@ -624,7 +624,7 @@ END -- 12.5.2 Regular Expressions
 
 END -- 12.5 String Functions
 
-BEGIN -- 12.6 Numeric Functions and Operators
+BEGIN -- 12.6 Numeric Functions and Operators ok
 
 BEGIN -- Function
 -- Name	Description
@@ -762,7 +762,7 @@ END -- 12.6.2 Mathematical Functions
 
 END -- 12.6 Numeric Functions and Operators
 
-BEGIN -- 12.7 Date and Time Functions
+BEGIN -- 12.7 Date and Time Functions ok
 
 BEGIN -- Date and Time Functions
 
@@ -1047,13 +1047,13 @@ END -- examples
 
 END -- 12.7 Date and Time Functions
 
-BEGIN -- 12.8 What Calendar Is Used By MySQL?
+BEGIN -- 12.8 What Calendar Is Used By MySQL? ok
 
 -- MySQL uses what is known as a proleptic Gregorian calendar.
 
 END -- 12.8 What Calendar Is Used By MySQL?
 
-BEGIN -- 12.9 Full-Text Search Functions
+BEGIN -- 12.9 Full-Text Search Functions ok
 
 -- MySQL has support for full-text indexing and searching:
 
@@ -1212,25 +1212,141 @@ BEGIN -- 12.9.5 Full-Text Restrictions ok
 
 END
 
-BEGIN -- 12.9.6 Fine-Tuning MySQL Full-Text Search
+BEGIN -- 12.9.6 Fine-Tuning MySQL Full-Text Search ok
+
+-- If you modify full-text variables that affect indexing 
+-- (ft_min_word_len, ft_max_word_len, or ft_stopword_file), 
+-- or if you change the stopword file itself, you must rebuild your FULLTEXT indexes 
+-- after making the changes and restarting the server. To rebuild the indexes in this case, 
+-- it is sufficient to do a QUICK repair operation:
+REPAIR TABLE tbl_name QUICK;
+
+myisamchk --recover --ft_min_word_len=3 tbl_name.MYI
 
 END
 
-BEGIN -- 12.9.7 Adding a Collation for Full-Text Indexing
+BEGIN -- 12.9.7 Adding a Collation for Full-Text Indexing ok
 END
 
 END -- 12.9 Full-Text Search Functions
 
-BEGIN -- 12.10 Cast Functions and Operators 
+BEGIN -- 12.10 Cast Functions and Operators ok
+
+-- Name	        	Description
+-- BINARY	Cast a string to a binary string
+-- CAST()	Cast a value as a certain type
+-- CONVERT()	Cast a value as a certain type
+
+-- CONVERT(expr using transcoding_name)
+
+SELECT CONVERT(_latin1'Müller' USING utf8);
+INSERT INTO utf8_table(utf8_column) 
+	SELECT CONVERT(latin1_column USING utf8) FROM latin1_table;
+
+-- CONVERT(string, CHAR[(N)] CHARACTER SET charset_name)
+-- CAST(string AS CHAR[(N)] CHARACTER SET charset_name)	 
+
+SELECT CONVERT('test',CHAR CHARACTER SET utf8);
+SELECT CAST('test' AS CHAR CHARACTER SET utf8);
+
+-- this is legal
+SELECT CAST('test' AS CHAR CHARACTER SET utf8) COLLATE utf8_bin;
+
+-- this is illegal
+SELECT CAST('test' AS CHAR CHARACTER SET utf8 COLLATE utf8_bin);
+
+SELECT 'A' LIKE CONVERT(blob_col USING latin1) FROM tbl_name;
+
+SELECT 'A' LIKE CONVERT(blob_col USING latin1) COLLATE latin1_germanl_ci FROM tbl_name;
+
+SET @s1=_latin1'abc',@s2=_latin2'abc';
+SELECT @s1=@s2;
+
+SELECT @s1=CONVERT(@s2 USING latin1);
+
+-- Character set conversion is also useful preceding lettercase conversion of binary strings. 
+-- LOWER() and UPPER() are ineffective when applied directly to binary strings 
+-- because the concept of lettercase does not apply. To perform lettercase conversion of
+-- a binary string, first convert it to a nonbinary string:
+SET @str=BINARY 'Now York';
+SELECT LOWER(@str),LOWER(CONVERT(@str USING latin1));
+
+CREATE TABLE new_table SELECT CAST('2011-01-01' AS DATE) AS c1;
+SHOW CREATE TABLE new_table;
+
+SELECT enum_col FROM tbl_name ORDER BY CAST(enum_col AS CHAR);
+
+SELECT 1+'1';
+SELECT X'41',X'41'+0;
+SELECT b'1100001',b'1100001'+0;
+
+SELECT CONCAT('hello you ',2);
+
+SELECT CAST(TIMESTAMP '2014-09-08 18:07:54' AS SIGNED);
+
+SHOW WARNINGS;
+
+USE test;
+
+CREATE TABLE c_test(col TIMESTAMP);
+
+INSERT INTO c_test VALUES('2014-09-08 18:07:54');
+
+SELECT col,CAST(col AS SIGNED) AS c_col FROM c_test;
+
+SELECT 1-2;
+SELECT CAST(1-2 AS UNSIGNED);
+SELECT CAST(CAST(1-2 AS UNSIGNED) AS SIGNED);
+
+SELECT CAST(1 AS UNSIGNED)-2.0
+
+SELECT 'a'='A';
+SELECT BINARY 'a'='A';
+SELECT 'a'='a ';
+SELECT BINARY 'a'='a  ';
+
+SELECT 'a'='A';
+SELECT _binary 'a'='A';
+
+SELECT CONVERT('abc' USING utf8);
+
 END -- 12.10 Cast Functions and Operators
 
 BEGIN -- 12.11 XML Functions 
+
+
+
 END -- 12.11 XML Functions
 
-BEGIN -- 12.12 Bit Functions and Operators 
+BEGIN -- 12.12 Bit Functions and Operators ok
+
+-- Name	Description
+-- BIT_COUNT()	Return the number of bits that are set
+-- &	Bitwise AND
+-- ~	Bitwise inversion
+-- |	Bitwise OR
+-- ^	Bitwise XOR
+-- <<	Left shift
+-- >>	Right shift
+
+SELECT 29|15;
+SELECT 29&15;
+SELECT 1^1;
+SELECT 1^0;
+SELECT 11^3;
+
+SELECT 1<<2;
+SELECT 4>>2;
+
+SELECT 5 & ~1;
+
+SELECT BIT_COUNT(29),BIT_COUNT(b'101010');
+
 END -- 12.12 Bit Functions and Operators
 
 BEGIN -- 12.13 Encryption and Compression Functions 
+
+
 
 END -- 12.13 Encryption and Compression Functions
 
@@ -1276,13 +1392,109 @@ END -- 12.15.9 Functions That Test Spatial Relations Between Geometry Objects
 
 END -- 12.15 Spatial Analysis Functions
 
-BEGIN -- 12.16 Aggregate (GROUP BY) Functions 
+BEGIN -- 12.16 Aggregate (GROUP BY) Functions ok
 
-BEGIN -- 12.16.1 Aggregate (GROUP BY) Function Descriptions 
+BEGIN -- 12.16.1 Aggregate (GROUP BY) Function Descriptions ok
+
+-- Name		       Description
+-- AVG()	Return the average value of the argument
+-- BIT_AND()	Return bitwise AND
+-- BIT_OR()	Return bitwise OR
+-- BIT_XOR()	Return bitwise XOR
+-- COUNT()	Return a count of the number of rows returned
+-- COUNT(DISTINCT)	Return the count of a number of different values
+-- GROUP_CONCAT()	Return a concatenated string
+-- MAX()	Return the maximum value
+-- MIN()	Return the minimum value
+-- STD()	Return the population standard deviation
+-- STDDEV()	Return the population standard deviation
+-- STDDEV_POP()	Return the population standard deviation
+-- STDDEV_SAMP()	Return the sample standard deviation
+-- SUM()	Return the sum
+-- VAR_POP()	Return the population standard variance
+-- VAR_SAMP()	Return the sample variance
+-- VARIANCE()	Return the population standard variance
+
+SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(time_col))) FROM tbl_name;
+SELECT FROM_DAYS(SUM(TO_DAYS(date_col))) FROM tbl_name;
+
+SELECT student_name,AVG(test_score) FROM student GROUP BY student_name;
+
+SELECT COUNT(DISTINCT results) FROM student;
+
+-- GROUP_CONCAT([DISTINCT] expr [,expr ...]
+--              [ORDER BY {unsigned_integer | col_name | expr}
+--                  [ASC | DESC] [,col_name ...]]
+--              [SEPARATOR str_val])
+
+SELECT student_name,GROUP_CONCAT(test_score) FROM student GROUP BY student_name;
+
+SELECT student_name,
+GROUP_CONCAT(DISTINCT test_score ORDER BY test_score DESC SEPARATOR 'v ')
+FROM student GROUP BY student_name;
+
+-- group_concat_max_len default is 1024
+SET [GLOBAL | SESSION] group_concat_max_len=val;
+
+SELECT student_name,MIN(test_score),MAX(test_score) FROM tudent GROUP BY student_name;
+
+
+
 END -- 12.16.1 Aggregate (GROUP BY) Function Descriptions
-BEGIN -- 12.16.2 GROUP BY Modifiers 
+
+BEGIN -- 12.16.2 GROUP BY Modifiers ok
+
+CREATE TABLE sales
+(
+	YEAR INT,
+	country VARCHAR(20),
+	product VARCHAR(20),
+	profit INT
+);
+SELECT YEAR,SUM(profit) AS profit FROM sales GROUP BY YEAR;
+
+SELECT YEAR,SUM(profit) AS profit FROM sales GROUP BY YEAR WITH ROLLUP;
+
+SELECT YEAR,country,product,SUM(profit) AS profit
+FROM sales
+GROUP BY YEAR,country,product;
+
+SELECT YEAR,country,product,SUM(profit) AS profit
+FROM sales
+GROUP BY YEAR,country,product WITH ROLLUP;
+
+SELECT * FROM 
+(SELECT YEAR,SUM(profit) AS profit FROM sales GROUP BY YEAR WITH ROLLUP) AS dt
+ORDER BY YEAR DESC;
+
+SELECT YEAR,country,product,SUM(profit) AS profit
+FROM sales
+GROUP BY YEAR,country,product WITH ROLLUP
+LIMIT 5;
+
+SELECT YEAR,country,SUM(profit) AS profit
+FROM sales
+GROUP BY YEAR WITH ROLLUP; -- only_full_group_by sql_mode is not enabled.
+
 END -- 12.16.2 GROUP BY Modifiers
-BEGIN -- 12.16.3 MySQL Handling of GROUP BY 
+
+BEGIN -- 12.16.3 MySQL Handling of GROUP BY ok
+
+SELECT NAME,COUNT(NAME) 
+FROM orders 
+GROUP BY NAME HAVING COUNT(NAME)=1; -- only_full_group_by is enable.
+
+SELECT NAME,COUNT(NAME) AS c FROM orders
+GROUP BY NAME
+HAVING c=1; -- only_full_group_by is disabled.
+
+SELECT id,FLOOR(VALUE/100) AS val
+FROM tab_name
+GROUP BY id,val;
+
+SELECT id,FLOOR(VALUE/100) AS val
+FROM tbl_name
+GROUP BY id,FLOOR(VALUE/100);
 
 END -- 12.16.3 MySQL Handling of GROUP BY
 
