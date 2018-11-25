@@ -74,23 +74,96 @@ SELECT IF(2=FALSE,'true','false');
 
 END -- 11.1.1 Numeric Type Overview
 
-BEGIN -- 11.1.2 Date and Time Type Overview 
+BEGIN -- 11.1.2 Date and Time Type Overview ok
+
+-- Date and DateTime range
+
+-- The Date range is 1000-01-01 to 9999-12-31
+-- DateTime 1000-01-01 00:00:00 9999-12-31 23:59:59
+-- TimeStamp 1970-01-01 00:00:01 2038-01-19 01:14:07
+-- Time,The range is -838:59:59 to 838:59:59
+-- Year[2|4] Year[2] 70-69 Year[4] 1901-2155
+
+SELECT SEC_TO_TIME(TIME_TO_SEC(time_col)) FROM tbl_name;
+SELECT FROM_DAYS(TO_DAYS(date_col)) FROM tbl_name;
+
+SELECT FROM_DAYS(TO_DAYS(CURRENT_TIMESTAMP));
 
 END -- 11.1.2 Date and Time Type Overview
 
-BEGIN -- 11.1.3 String Type Overview 
+BEGIN -- 11.1.3 String Type Overview ok
+
+CREATE TABLE t
+(
+	c1 VARCHAR(20) CHARACTER SET utf8,
+	c2 TEXT CHARACTER SET latin1 COLLATION latin1_general_cs
+);
+
+-- CHARSET is synonym for CHARACTER SET
+
+CREATE TABLE t
+(
+	c1 VARCHAR(10) CHARACTER SET BINARY,
+	c2 TEXT CHARACTER SET BINARY,
+	c3 ENUM('a','b','c') CHARACTER SET BINARY
+);
+
+SHOW CREATE TABLE t;
+
+-- The ASCII attribute is shorthand for CHARACTER SET latin1.
+-- The UNICODE attribute is shorthand for CHATACTER SET ucs2.
+
+-- [NATIONAL] CHAR[(M)] [CHARACTER SET charset_name] [COLLATE collation_name]
+-- The range of M is 0 to 255,if M is omitted,the length is 1.
+
+-- [NATIONAL] VARCHAR(M) [CHARACTER SET charset_name] [COLLATE collation_name]
+-- 65535 bytes,which is shared among all columns.
+-- utf8 characters can require up to three bytes per character, 
+-- so a VARCHAR column that uses the utf8 character set can be declared to be 
+-- a maximum of 21,844 characters.
+SELECT LENGTH('张元伯');
+
+-- BINARY[(M)]
+
+-- VARBINARY[(M)]
+
+-- TIMYBLOB 	255 bytes
+
+-- TINYTEXT 	255 characters
+
+-- BLOB[(M)]	65,535 bytes. 
+
+-- TEXT[(M)] [CHARACTER SET charset_name] [COLLATE collation_name]
+-- A TEXT column with a maximum length of 65,535 (216 − 1) characters.
+
+-- MEDIUMBLOB
+
+-- MEDIUMTEXT [CHARACTER SET charset_name] [COLLATE collation_name]
+
+-- LONGBLOB
+
+-- LONGTEXT [CHARACTER SET charset_name] [COLLATE collation_name]
+
+-- ENUM('value1','value2',...) [CHARACTER SET charset_name] [COLLATE collation_name]
+-- An ENUM column can have a maximum of 65,535 distinct elements. (The practical limit is less than 3000.)
+-- A table can have no more than 255 unique element list definitions among its ENUM and 
+-- SET columns considered as a group. For more information on these limits, 
+
+-- SET('value1','value2',...) [CHARACTER SET charset_name] [COLLATE collation_name]
+
+
 
 END -- 11.1.3 String Type Overview
 
 END -- 11.1 Data Type Overview
 
-BEGIN -- 11.2 Numeric Types 
+BEGIN -- 11.2 Numeric Types
 
-BEGIN -- 11.2.1 Integer Types (Exact Value) - INTEGER, INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT 
+BEGIN -- 11.2.1 Integer Types (Exact Value) - INTEGER, INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT ok
 
 END -- 11.2.1 Integer Types (Exact Value) - INTEGER, INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT
 
-BEGIN -- 11.2.2 Fixed-Point Types (Exact Value) - DECIMAL, NUMERIC
+BEGIN -- 11.2.2 Fixed-Point Types (Exact Value) - DECIMAL, NUMERIC ok
 
 END -- 11.2.2 Fixed-Point Types (Exact Value) - DECIMAL, NUMERIC
 
