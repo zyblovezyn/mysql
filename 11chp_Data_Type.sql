@@ -1,5 +1,7 @@
 BEGIN -- Chapter 11 Data Type
 
+
+
 -- MySQL supports a number of SQL data types in several categories: numeric types, 
 -- date and time types, string (character and byte) types, and spatial types. 
 
