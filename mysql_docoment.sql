@@ -163,7 +163,6 @@ END -- 2.12.3 Problems Using the Perl DBI/DBD Interface
 END -- 2.12 Perl Installation Notes 
 END -- 2 Installing and Upgrading MySQL 
 
-
 BEGIN -- 3 Tutorial 
 BEGIN -- 3.1 Connecting to and Disconnecting from the Server 
 END -- 3.1 Connecting to and Disconnecting from the Server 
@@ -3076,3 +3075,801 @@ BEGIN -- 14.23.4 InnoDB Error Handling
 END -- 14.23.4 InnoDB Error Handling 
 END -- 14.23 InnoDB Troubleshooting 
 END -- 14 The InnoDB Storage Engine 
+
+BEGIN -- 15 Alternative Storage Engines 
+BEGIN -- 15.1 Setting the Storage Engine 
+END -- 15.1 Setting the Storage Engine
+BEGIN -- 15.2 Overview of MySQL Storage Engine Architecture 
+BEGIN -- 15.2.1 Pluggable Storage Engine Architecture 
+END -- 15.2.1 Pluggable Storage Engine Architecture
+BEGIN -- 15.2.2 The Common Database Server Layer 
+END -- 15.2.2 The Common Database Server Layer
+END -- 15.2 Overview of MySQL Storage Engine Architecture
+BEGIN -- 15.3 The MyISAM Storage Engine 
+END -- 15.3 The MyISAM Storage Engine
+BEGIN -- 15.3.1 MyISAM Startup Options 
+END -- 15.3.1 MyISAM Startup Options
+BEGIN -- 15.3.2 Space Needed for Keys 
+END -- 15.3.2 Space Needed for Keys
+BEGIN -- 15.3.3 MyISAM Table Storage Formats 
+END -- 15.3.3 MyISAM Table Storage Formats
+BEGIN -- 15.3.4 MyISAM Table Problems 
+END -- 15.3.4 MyISAM Table Problems
+BEGIN -- 15.4 The MEMORY Storage Engine 
+END -- 15.4 The MEMORY Storage Engine
+BEGIN -- 15.5 The CSV Storage Engine 
+BEGIN -- 15.5.1 Repairing and Checking CSV Tables 
+END -- 15.5.1 Repairing and Checking CSV Tables
+BEGIN -- 15.5.2 CSV Limitations 
+END -- 15.5.2 CSV Limitations
+END -- 15.5 The CSV Storage Engine
+BEGIN -- 15.6 The ARCHIVE Storage Engine 
+END -- 15.6 The ARCHIVE Storage Engine
+BEGIN -- 15.7 The BLACKHOLE Storage Engine 
+END -- 15.7 The BLACKHOLE Storage Engine
+BEGIN -- 15.8 The MERGE Storage Engine 
+BEGIN -- 15.8.1 MERGE Table Advantages and Disadvantages 
+END -- 15.8.1 MERGE Table Advantages and Disadvantages
+BEGIN -- 15.8.2 MERGE Table Problems 
+END -- 15.8.2 MERGE Table Problems
+END -- 15.8 The MERGE Storage Engine
+BEGIN -- 15.9 The FEDERATED Storage Engine 
+BEGIN -- 15.9.1 FEDERATED Storage Engine Overview 
+END -- 15.9.1 FEDERATED Storage Engine Overview
+BEGIN -- 15.9.2 How to Create FEDERATED Tables 
+END -- 15.9.2 How to Create FEDERATED Tables
+BEGIN -- 15.9.3 FEDERATED Storage Engine Notes and Tips 
+END -- 15.9.3 FEDERATED Storage Engine Notes and Tips
+BEGIN -- 15.9.4 FEDERATED Storage Engine Resources 
+END -- 15.9.4 FEDERATED Storage Engine Resources
+END -- 15.9 The FEDERATED Storage Engine
+BEGIN -- 15.10 The EXAMPLE Storage Engine 
+END -- 15.10 The EXAMPLE Storage Engine
+BEGIN -- 15.11 Other Storage Engines 
+END -- 15.11 Other Storage Engines
+END -- 15 Alternative Storage Engines
+
+
+BEGIN -- 16 High Availability and Scalability 
+BEGIN -- 16.1 Using ZFS Replication 
+BEGIN -- 16.1.1 Using ZFS for File System Replication 
+END -- 16.1.1 Using ZFS for File System Replication
+BEGIN -- 16.1.2 Configuring MySQL for ZFS Replication 
+END -- 16.1.2 Configuring MySQL for ZFS Replication
+BEGIN -- 16.1.3 Handling MySQL Recovery with ZFS 
+END -- 16.1.3 Handling MySQL Recovery with ZFS
+END -- 16.1 Using ZFS Replication
+BEGIN -- 16.2 Using MySQL with memcached 
+BEGIN -- 16.2.1 Installing memcached 
+END -- 16.2.1 Installing memcached
+BEGIN -- 16.2.2 Using memcached 
+END -- 16.2.2 Using memcached
+BEGIN -- 16.2.3 Developing a memcached Application 
+END -- 16.2.3 Developing a memcached Application
+BEGIN -- 16.2.4 Getting memcached Statistics 
+END -- 16.2.4 Getting memcached Statistics
+BEGIN -- 16.2.5 memcached FAQ 
+END -- 16.2.5 memcached FAQ
+END -- 16.2 Using MySQL with memcached
+END -- 16 High Availability and Scalability
+
+BEGIN -- 17 Replication 
+BEGIN -- 17.1 Replication Configuration 
+BEGIN -- 17.1.1 How to Set Up Replication 
+END -- 17.1.1 How to Set Up Replication
+BEGIN -- 17.1.2 Replication Formats 
+END -- 17.1.2 Replication Formats
+BEGIN -- 17.1.3 Replication and Binary Logging Options and Variables 
+END -- 17.1.3 Replication and Binary Logging Options and Variables
+BEGIN -- 17.1.4 Common Replication Administration Tasks 
+END -- 17.1.4 Common Replication Administration Tasks
+END -- 17.1 Replication Configuration
+BEGIN -- 17.2 Replication Implementation 
+BEGIN -- 17.2.1 Replication Implementation Details 
+END -- 17.2.1 Replication Implementation Details
+BEGIN -- 17.2.2 Replication Relay and Status Logs 
+END -- 17.2.2 Replication Relay and Status Logs
+BEGIN -- 17.2.3 How Servers Evaluate Replication Filtering Rules 
+END -- 17.2.3 How Servers Evaluate Replication Filtering Rules
+END -- 17.2 Replication Implementation
+BEGIN -- 17.3 Replication Solutions 
+BEGIN -- 17.3.1 Using Replication for Backups 
+END -- 17.3.1 Using Replication for Backups
+BEGIN -- 17.3.2 Using Replication with Different Master and Slave Storage Engines 
+END -- 17.3.2 Using Replication with Different Master and Slave Storage Engines
+BEGIN -- 17.3.3 Using Replication for Scale-Out 
+END -- 17.3.3 Using Replication for Scale-Out
+BEGIN -- 17.3.4 Replicating Different Databases to Different Slaves 
+END -- 17.3.4 Replicating Different Databases to Different Slaves
+BEGIN -- 17.3.5 Improving Replication Performance 
+END -- 17.3.5 Improving Replication Performance
+BEGIN -- 17.3.6 Switching Masters During Failover 
+END -- 17.3.6 Switching Masters During Failover
+BEGIN -- 17.3.7 Setting Up Replication to Use Encrypted Connections 
+END -- 17.3.7 Setting Up Replication to Use Encrypted Connections
+BEGIN -- 17.3.8 Semisynchronous Replication 
+END -- 17.3.8 Semisynchronous Replication
+END -- 17.3 Replication Solutions
+BEGIN -- 17.4 Replication Notes and Tips 
+BEGIN -- 17.4.1 Replication Features and Issues 
+END -- 17.4.1 Replication Features and Issues
+BEGIN -- 17.4.2 Replication Compatibility Between MySQL Versions 
+END -- 17.4.2 Replication Compatibility Between MySQL Versions
+BEGIN -- 17.4.3 Upgrading a Replication Setup 
+END -- 17.4.3 Upgrading a Replication Setup
+BEGIN -- 17.4.4 Troubleshooting Replication 
+END -- 17.4.4 Troubleshooting Replication
+BEGIN -- 17.4.5 How to Report Replication Bugs or Problems 
+END -- 17.4.5 How to Report Replication Bugs or Problems
+END -- 17.4 Replication Notes and Tips
+END -- 17 Replication
+
+BEGIN -- 18 MySQL NDB Cluster 7.2 
+BEGIN -- 18.1 NDB Cluster Overview 
+BEGIN -- 18.1.1 NDB Cluster Core Concepts 
+END -- 18.1.1 NDB Cluster Core Concepts
+BEGIN -- 18.1.2 NDB Cluster Nodes, Node Groups, Replicas, and Partitions 
+END -- 18.1.2 NDB Cluster Nodes, Node Groups, Replicas, and Partitions
+BEGIN -- 18.1.3 NDB Cluster Hardware, Software, and Networking Requirements 
+END -- 18.1.3 NDB Cluster Hardware, Software, and Networking Requirements
+BEGIN -- 18.1.4 What is New in MySQL NDB Cluster 7.2 
+END -- 18.1.4 What is New in MySQL NDB Cluster 7.2
+BEGIN -- 18.1.5 MySQL Server Using InnoDB Compared with NDB Cluster 
+END -- 18.1.5 MySQL Server Using InnoDB Compared with NDB Cluster
+BEGIN -- 18.1.6 Known Limitations of NDB Cluster 
+END -- 18.1.6 Known Limitations of NDB Cluster
+END -- 18.1 NDB Cluster Overview
+BEGIN -- 18.2 NDB Cluster Installation 
+BEGIN -- 18.2.1 Installing NDB Cluster on Linux 
+END -- 18.2.1 Installing NDB Cluster on Linux
+BEGIN -- 18.2.2 Installing NDB Cluster on Windows 
+END -- 18.2.2 Installing NDB Cluster on Windows
+BEGIN -- 18.2.3 Initial Configuration of NDB Cluster 
+END -- 18.2.3 Initial Configuration of NDB Cluster
+BEGIN -- 18.2.4 Initial Startup of NDB Cluster 
+END -- 18.2.4 Initial Startup of NDB Cluster
+BEGIN -- 18.2.5 NDB Cluster Example with Tables and Data 
+END -- 18.2.5 NDB Cluster Example with Tables and Data
+BEGIN -- 18.2.6 Safe Shutdown and Restart of NDB Cluster 
+END -- 18.2.6 Safe Shutdown and Restart of NDB Cluster
+BEGIN -- 18.2.7 Upgrading and Downgrading NDB Cluster 
+END -- 18.2.7 Upgrading and Downgrading NDB Cluster
+END -- 18.2 NDB Cluster Installation
+BEGIN -- 18.3 Configuration of NDB Cluster 
+BEGIN -- 18.3.1 Quick Test Setup of NDB Cluster 
+END -- 18.3.1 Quick Test Setup of NDB Cluster
+BEGIN -- 18.3.2 Overview of NDB Cluster Configuration Parameters, Options, and Variables 
+END -- 18.3.2 Overview of NDB Cluster Configuration Parameters, Options, and Variables
+BEGIN -- 18.3.3 NDB Cluster Configuration Files 
+END -- 18.3.3 NDB Cluster Configuration Files
+BEGIN -- 18.3.4 Using High-Speed Interconnects with NDB Cluster 
+END -- 18.3.4 Using High-Speed Interconnects with NDB Cluster
+END -- 18.3 Configuration of NDB Cluster
+BEGIN -- 18.4 NDB Cluster Programs 
+BEGIN -- 18.4.1 ndbd — The NDB Cluster Data Node Daemon 
+END -- 18.4.1 ndbd — The NDB Cluster Data Node Daemon
+BEGIN -- 18.4.2 ndbinfo_select_all — Select From ndbinfo Tables 
+END -- 18.4.2 ndbinfo_select_all — Select From ndbinfo Tables
+BEGIN -- 18.4.3 ndbmtd — The NDB Cluster Data Node Daemon (Multi-Threaded) 
+END -- 18.4.3 ndbmtd — The NDB Cluster Data Node Daemon (Multi-Threaded)
+BEGIN -- 18.4.4 ndb_mgmd — The NDB Cluster Management Server Daemon 
+END -- 18.4.4 ndb_mgmd — The NDB Cluster Management Server Daemon
+BEGIN -- 18.4.5 ndb_mgm — The NDB Cluster Management Client 
+END -- 18.4.5 ndb_mgm — The NDB Cluster Management Client
+BEGIN -- 18.4.6 ndb_blob_tool — Check and Repair BLOB and TEXT columns of NDB Cluster Tables 
+END -- 18.4.6 ndb_blob_tool — Check and Repair BLOB and TEXT columns of NDB Cluster Tables
+BEGIN -- 18.4.7 ndb_config — Extract NDB Cluster Configuration Information 
+END -- 18.4.7 ndb_config — Extract NDB Cluster Configuration Information
+BEGIN -- 18.4.8 ndb_cpcd — Automate Testing for NDB Development 
+END -- 18.4.8 ndb_cpcd — Automate Testing for NDB Development
+BEGIN -- 18.4.9 ndb_delete_all — Delete All Rows from an NDB Table 
+END -- 18.4.9 ndb_delete_all — Delete All Rows from an NDB Table
+BEGIN -- 18.4.10 ndb_desc — Describe NDB Tables 
+END -- 18.4.10 ndb_desc — Describe NDB Tables
+BEGIN -- 18.4.11 ndb_drop_index — Drop Index from an NDB Table 
+END -- 18.4.11 ndb_drop_index — Drop Index from an NDB Table
+BEGIN -- 18.4.12 ndb_drop_table — Drop an NDB Table 
+END -- 18.4.12 ndb_drop_table — Drop an NDB Table
+BEGIN -- 18.4.13 ndb_error_reporter — NDB Error-Reporting Utility 
+END -- 18.4.13 ndb_error_reporter — NDB Error-Reporting Utility
+BEGIN -- 18.4.14 ndb_index_stat — NDB Index Statistics Utility 
+END -- 18.4.14 ndb_index_stat — NDB Index Statistics Utility
+BEGIN -- 18.4.15 ndb_move_data — NDB Data Copy Utility 
+END -- 18.4.15 ndb_move_data — NDB Data Copy Utility
+BEGIN -- 18.4.16 ndb_print_backup_file — Print NDB Backup File Contents 
+END -- 18.4.16 ndb_print_backup_file — Print NDB Backup File Contents
+BEGIN -- 18.4.17 ndb_print_file — Print NDB Disk Data File Contents 
+END -- 18.4.17 ndb_print_file — Print NDB Disk Data File Contents
+BEGIN -- 18.4.18 ndb_print_schema_file — Print NDB Schema File Contents 
+END -- 18.4.18 ndb_print_schema_file — Print NDB Schema File Contents
+BEGIN -- 18.4.19 ndb_print_sys_file — Print NDB System File Contents 
+END -- 18.4.19 ndb_print_sys_file — Print NDB System File Contents
+BEGIN -- 18.4.20 ndb_redo_log_reader — Check and Print Content of Cluster Redo Log 
+END -- 18.4.20 ndb_redo_log_reader — Check and Print Content of Cluster Redo Log
+BEGIN -- 18.4.21 ndb_restore — Restore an NDB Cluster Backup 
+END -- 18.4.21 ndb_restore — Restore an NDB Cluster Backup
+BEGIN -- 18.4.22 ndb_select_all — Print Rows from an NDB Table 
+END -- 18.4.22 ndb_select_all — Print Rows from an NDB Table
+BEGIN -- 18.4.23 ndb_select_count — Print Row Counts for NDB Tables 
+END -- 18.4.23 ndb_select_count — Print Row Counts for NDB Tables
+BEGIN -- 18.4.24 ndb_show_tables — Display List of NDB Tables 
+END -- 18.4.24 ndb_show_tables — Display List of NDB Tables
+BEGIN -- 18.4.25 ndb_size.pl — NDBCLUSTER Size Requirement Estimator 
+END -- 18.4.25 ndb_size.pl — NDBCLUSTER Size Requirement Estimator
+BEGIN -- 18.4.26 ndb_waiter — Wait for NDB Cluster to Reach a Given Status 
+END -- 18.4.26 ndb_waiter — Wait for NDB Cluster to Reach a Given Status
+BEGIN -- 18.4.27 Options Common to NDB Cluster Programs — Options Common to NDB Cluster Programs 
+END -- 18.4.27 Options Common to NDB Cluster Programs — Options Common to NDB Cluster Programs
+END -- 18.4 NDB Cluster Programs
+ 
+BEGIN -- 18.5 Management of NDB Cluster 
+BEGIN -- 18.5.1 Summary of NDB Cluster Start Phases 
+END -- 18.5.1 Summary of NDB Cluster Start Phases
+BEGIN -- 18.5.2 Commands in the NDB Cluster Management Client 
+END -- 18.5.2 Commands in the NDB Cluster Management Client
+BEGIN -- 18.5.3 Online Backup of NDB Cluster 
+END -- 18.5.3 Online Backup of NDB Cluster
+BEGIN -- 18.5.4 MySQL Server Usage for NDB Cluster 
+END -- 18.5.4 MySQL Server Usage for NDB Cluster
+BEGIN -- 18.5.5 Performing a Rolling Restart of an NDB Cluster 
+END -- 18.5.5 Performing a Rolling Restart of an NDB Cluster
+BEGIN -- 18.5.6 Event Reports Generated in NDB Cluster 
+END -- 18.5.6 Event Reports Generated in NDB Cluster
+BEGIN -- 18.5.7 NDB Cluster Log Messages 
+END -- 18.5.7 NDB Cluster Log Messages
+BEGIN -- 18.5.8 NDB Cluster Single User Mode 
+END -- 18.5.8 NDB Cluster Single User Mode
+BEGIN -- 18.5.9 Quick Reference: NDB Cluster SQL Statements 
+END -- 18.5.9 Quick Reference: NDB Cluster SQL Statements
+BEGIN -- 18.5.10 ndbinfo: The NDB Cluster Information Database 
+END -- 18.5.10 ndbinfo: The NDB Cluster Information Database
+BEGIN -- 18.5.11 NDB Cluster Security Issues 
+END -- 18.5.11 NDB Cluster Security Issues
+BEGIN -- 18.5.12 NDB Cluster Disk Data Tables 
+END -- 18.5.12 NDB Cluster Disk Data Tables
+BEGIN -- 18.5.13 Adding NDB Cluster Data Nodes Online 
+END -- 18.5.13 Adding NDB Cluster Data Nodes Online
+BEGIN -- 18.5.14 Distributed MySQL Privileges for NDB Cluster 
+END -- 18.5.14 Distributed MySQL Privileges for NDB Cluster
+BEGIN -- 18.5.15 NDB API Statistics Counters and Variables 
+END -- 18.5.15 NDB API Statistics Counters and Variables
+END -- 18.5 Management of NDB Cluster
+BEGIN -- 18.6 NDB Cluster Replication 
+BEGIN -- 18.6.1 NDB Cluster Replication: Abbreviations and Symbols 
+END -- 18.6.1 NDB Cluster Replication: Abbreviations and Symbols
+BEGIN -- 18.6.2 General Requirements for NDB Cluster Replication 
+END -- 18.6.2 General Requirements for NDB Cluster Replication
+BEGIN -- 18.6.3 Known Issues in NDB Cluster Replication 
+END -- 18.6.3 Known Issues in NDB Cluster Replication
+BEGIN -- 18.6.4 NDB Cluster Replication Schema and Tables 
+END -- 18.6.4 NDB Cluster Replication Schema and Tables
+BEGIN -- 18.6.5 Preparing the NDB Cluster for Replication 
+END -- 18.6.5 Preparing the NDB Cluster for Replication
+BEGIN -- 18.6.6 Starting NDB Cluster Replication (Single Replication Channel) 
+END -- 18.6.6 Starting NDB Cluster Replication (Single Replication Channel)
+BEGIN -- 18.6.7 Using Two Replication Channels for NDB Cluster Replication 
+END -- 18.6.7 Using Two Replication Channels for NDB Cluster Replication
+BEGIN -- 18.6.8 Implementing Failover with NDB Cluster Replication 
+END -- 18.6.8 Implementing Failover with NDB Cluster Replication
+BEGIN -- 18.6.9 NDB Cluster Backups With NDB Cluster Replication 
+END -- 18.6.9 NDB Cluster Backups With NDB Cluster Replication
+BEGIN -- 18.6.10 NDB Cluster Replication: Multi-Master and Circular Replication 
+END -- 18.6.10 NDB Cluster Replication: Multi-Master and Circular Replication
+BEGIN -- 18.6.11 NDB Cluster Replication Conflict Resolution 
+END -- 18.6.11 NDB Cluster Replication Conflict Resolution
+END -- 18.6 NDB Cluster Replication
+BEGIN -- 18.7 NDB Cluster Release Notes 
+END -- 18.7 NDB Cluster Release Notes
+END -- 18 MySQL NDB Cluster 7.2
+
+BEGIN -- 19 Partitioning 
+BEGIN -- 19.1 Overview of Partitioning in MySQL 
+END -- 19.1 Overview of Partitioning in MySQL
+BEGIN -- 19.2 Partitioning Types 
+BEGIN -- 19.2.1 RANGE Partitioning 
+END -- 19.2.1 RANGE Partitioning
+BEGIN -- 19.2.2 LIST Partitioning 
+END -- 19.2.2 LIST Partitioning
+BEGIN -- 19.2.3 COLUMNS Partitioning 
+END -- 19.2.3 COLUMNS Partitioning
+BEGIN -- 19.2.4 HASH Partitioning 
+END -- 19.2.4 HASH Partitioning
+BEGIN -- 19.2.5 KEY Partitioning 
+END -- 19.2.5 KEY Partitioning
+BEGIN -- 19.2.6 Subpartitioning 
+END -- 19.2.6 Subpartitioning
+BEGIN -- 19.2.7 How MySQL Partitioning Handles NULL 
+END -- 19.2.7 How MySQL Partitioning Handles NULL
+END -- 19.2 Partitioning Types
+BEGIN -- 19.3 Partition Management 
+BEGIN -- 19.3.1 Management of RANGE and LIST Partitions 
+END -- 19.3.1 Management of RANGE and LIST Partitions
+BEGIN -- 19.3.2 Management of HASH and KEY Partitions 
+END -- 19.3.2 Management of HASH and KEY Partitions
+BEGIN -- 19.3.3 Maintenance of Partitions 
+END -- 19.3.3 Maintenance of Partitions
+BEGIN -- 19.3.4 Obtaining Information About Partitions 
+END -- 19.3.4 Obtaining Information About Partitions
+END -- 19.3 Partition Management
+BEGIN -- 19.4 Partition Pruning 
+END -- 19.4 Partition Pruning
+BEGIN -- 19.5 Restrictions and Limitations on Partitioning 
+BEGIN -- 19.5.1 Partitioning Keys, Primary Keys, and Unique Keys 
+END -- 19.5.1 Partitioning Keys, Primary Keys, and Unique Keys
+BEGIN -- 19.5.2 Partitioning Limitations Relating to Storage Engines 
+END -- 19.5.2 Partitioning Limitations Relating to Storage Engines
+BEGIN -- 19.5.3 Partitioning Limitations Relating to Functions 
+END -- 19.5.3 Partitioning Limitations Relating to Functions
+BEGIN -- 19.5.4 Partitioning and Table-Level Locking 
+END -- 19.5.4 Partitioning and Table-Level Locking
+END -- 19.5 Restrictions and Limitations on Partitioning
+END -- 19 Partitioning
+
+BEGIN -- 20 Stored Programs and Views 
+BEGIN -- 20.1 Defining Stored Programs 
+END -- 20.1 Defining Stored Programs
+BEGIN -- 20.2 Using Stored Routines (Procedures and Functions) 
+BEGIN -- 20.2.1 Stored Routine Syntax 
+END -- 20.2.1 Stored Routine Syntax
+BEGIN -- 20.2.2 Stored Routines and MySQL Privileges 
+END -- 20.2.2 Stored Routines and MySQL Privileges
+BEGIN -- 20.2.3 Stored Routine Metadata 
+END -- 20.2.3 Stored Routine Metadata
+BEGIN -- 20.2.4 Stored Procedures, Functions, Triggers, and LAST_INSERT_ID() 
+END -- 20.2.4 Stored Procedures, Functions, Triggers, and LAST_INSERT_ID()
+END -- 20.2 Using Stored Routines (Procedures and Functions)
+BEGIN -- 20.3 Using Triggers 
+BEGIN -- 20.3.1 Trigger Syntax and Examples 
+END -- 20.3.1 Trigger Syntax and Examples
+BEGIN -- 20.3.2 Trigger Metadata 
+END -- 20.3.2 Trigger Metadata
+END -- 20.3 Using Triggers
+BEGIN -- 20.4 Using the Event Scheduler 
+BEGIN -- 20.4.1 Event Scheduler Overview 
+END -- 20.4.1 Event Scheduler Overview
+BEGIN -- 20.4.2 Event Scheduler Configuration 
+END -- 20.4.2 Event Scheduler Configuration
+BEGIN -- 20.4.3 Event Syntax 
+END -- 20.4.3 Event Syntax
+BEGIN -- 20.4.4 Event Metadata 
+END -- 20.4.4 Event Metadata
+BEGIN -- 20.4.5 Event Scheduler Status 
+END -- 20.4.5 Event Scheduler Status
+BEGIN -- 20.4.6 The Event Scheduler and MySQL Privileges 
+END -- 20.4.6 The Event Scheduler and MySQL Privileges
+END -- 20.4 Using the Event Scheduler
+BEGIN -- 20.5 Using Views 
+BEGIN -- 20.5.1 View Syntax 
+END -- 20.5.1 View Syntax
+BEGIN -- 20.5.2 View Processing Algorithms 
+END -- 20.5.2 View Processing Algorithms
+BEGIN -- 20.5.3 Updatable and Insertable Views 
+END -- 20.5.3 Updatable and Insertable Views
+BEGIN -- 20.5.4 The View WITH CHECK OPTION Clause 
+END -- 20.5.4 The View WITH CHECK OPTION Clause
+BEGIN -- 20.5.5 View Metadata 
+END -- 20.5.5 View Metadata
+END -- 20.5 Using Views
+BEGIN -- 20.6 Access Control for Stored Programs and Views 
+END -- 20.6 Access Control for Stored Programs and Views
+BEGIN -- 20.7 Binary Logging of Stored Programs 
+END -- 20.7 Binary Logging of Stored Programs
+END -- 20 Stored Programs and Views
+
+BEGIN -- 21 INFORMATION_SCHEMA Tables 
+BEGIN -- 21.1 The INFORMATION_SCHEMA CHARACTER_SETS Table 
+END -- 21.1 The INFORMATION_SCHEMA CHARACTER_SETS Table
+BEGIN -- 21.2 The INFORMATION_SCHEMA COLLATIONS Table 
+END -- 21.2 The INFORMATION_SCHEMA COLLATIONS Table
+BEGIN -- 21.3 The INFORMATION_SCHEMA COLLATION_CHARACTER_SET_APPLICABILITY Table 
+END -- 21.3 The INFORMATION_SCHEMA COLLATION_CHARACTER_SET_APPLICABILITY Table
+BEGIN -- 21.4 The INFORMATION_SCHEMA COLUMNS Table 
+END -- 21.4 The INFORMATION_SCHEMA COLUMNS Table
+BEGIN -- 21.5 The INFORMATION_SCHEMA COLUMN_PRIVILEGES Table 
+END -- 21.5 The INFORMATION_SCHEMA COLUMN_PRIVILEGES Table
+BEGIN -- 21.6 The INFORMATION_SCHEMA ENGINES Table 
+END -- 21.6 The INFORMATION_SCHEMA ENGINES Table
+BEGIN -- 21.7 The INFORMATION_SCHEMA EVENTS Table 
+END -- 21.7 The INFORMATION_SCHEMA EVENTS Table
+BEGIN -- 21.8 The INFORMATION_SCHEMA GLOBAL_STATUS and SESSION_STATUS Tables 
+END -- 21.8 The INFORMATION_SCHEMA GLOBAL_STATUS and SESSION_STATUS Tables
+BEGIN -- 21.9 The INFORMATION_SCHEMA GLOBAL_VARIABLES and SESSION_VARIABLES Tables 
+END -- 21.9 The INFORMATION_SCHEMA GLOBAL_VARIABLES and SESSION_VARIABLES Tables
+BEGIN -- 21.10 The INFORMATION_SCHEMA KEY_COLUMN_USAGE Table 
+END -- 21.10 The INFORMATION_SCHEMA KEY_COLUMN_USAGE Table
+BEGIN -- 21.11 The INFORMATION_SCHEMA PARAMETERS Table 
+END -- 21.11 The INFORMATION_SCHEMA PARAMETERS Table
+BEGIN -- 21.12 The INFORMATION_SCHEMA PARTITIONS Table 
+END -- 21.12 The INFORMATION_SCHEMA PARTITIONS Table
+BEGIN -- 21.13 The INFORMATION_SCHEMA PLUGINS Table 
+END -- 21.13 The INFORMATION_SCHEMA PLUGINS Table
+BEGIN -- 21.14 The INFORMATION_SCHEMA PROCESSLIST Table 
+END -- 21.14 The INFORMATION_SCHEMA PROCESSLIST Table
+BEGIN -- 21.15 The INFORMATION_SCHEMA PROFILING Table 
+END -- 21.15 The INFORMATION_SCHEMA PROFILING Table
+BEGIN -- 21.16 The INFORMATION_SCHEMA REFERENTIAL_CONSTRAINTS Table 
+END -- 21.16 The INFORMATION_SCHEMA REFERENTIAL_CONSTRAINTS Table
+BEGIN -- 21.17 The INFORMATION_SCHEMA ROUTINES Table 
+END -- 21.17 The INFORMATION_SCHEMA ROUTINES Table
+BEGIN -- 21.18 The INFORMATION_SCHEMA SCHEMATA Table 
+END -- 21.18 The INFORMATION_SCHEMA SCHEMATA Table
+BEGIN -- 21.19 The INFORMATION_SCHEMA SCHEMA_PRIVILEGES Table 
+END -- 21.19 The INFORMATION_SCHEMA SCHEMA_PRIVILEGES Table
+BEGIN -- 21.20 The INFORMATION_SCHEMA STATISTICS Table 
+END -- 21.20 The INFORMATION_SCHEMA STATISTICS Table
+BEGIN -- 21.21 The INFORMATION_SCHEMA TABLES Table 
+END -- 21.21 The INFORMATION_SCHEMA TABLES Table
+BEGIN -- 21.22 The INFORMATION_SCHEMA TABLESPACES Table 
+END -- 21.22 The INFORMATION_SCHEMA TABLESPACES Table
+BEGIN -- 21.23 The INFORMATION_SCHEMA TABLE_CONSTRAINTS Table 
+END -- 21.23 The INFORMATION_SCHEMA TABLE_CONSTRAINTS Table
+BEGIN -- 21.24 The INFORMATION_SCHEMA TABLE_PRIVILEGES Table 
+END -- 21.24 The INFORMATION_SCHEMA TABLE_PRIVILEGES Table
+BEGIN -- 21.25 The INFORMATION_SCHEMA TRIGGERS Table 
+END -- 21.25 The INFORMATION_SCHEMA TRIGGERS Table
+BEGIN -- 21.26 The INFORMATION_SCHEMA USER_PRIVILEGES Table 
+END -- 21.26 The INFORMATION_SCHEMA USER_PRIVILEGES Table
+BEGIN -- 21.27 The INFORMATION_SCHEMA VIEWS Table 
+END -- 21.27 The INFORMATION_SCHEMA VIEWS Table
+BEGIN -- 21.28 InnoDB INFORMATION_SCHEMA Tables 
+BEGIN -- 21.28.1 The INFORMATION_SCHEMA INNODB_BUFFER_PAGE Table 
+END -- 21.28.1 The INFORMATION_SCHEMA INNODB_BUFFER_PAGE Table
+BEGIN -- 21.28.2 The INFORMATION_SCHEMA INNODB_BUFFER_PAGE_LRU Table 
+END -- 21.28.2 The INFORMATION_SCHEMA INNODB_BUFFER_PAGE_LRU Table
+BEGIN -- 21.28.3 The INFORMATION_SCHEMA INNODB_BUFFER_POOL_STATS Table 
+END -- 21.28.3 The INFORMATION_SCHEMA INNODB_BUFFER_POOL_STATS Table
+BEGIN -- 21.28.4 The INFORMATION_SCHEMA INNODB_CMP and INNODB_CMP_RESET Tables 
+END -- 21.28.4 The INFORMATION_SCHEMA INNODB_CMP and INNODB_CMP_RESET Tables
+BEGIN -- 21.28.5 The INFORMATION_SCHEMA INNODB_CMPMEM and INNODB_CMPMEM_RESET Tables 
+END -- 21.28.5 The INFORMATION_SCHEMA INNODB_CMPMEM and INNODB_CMPMEM_RESET Tables
+BEGIN -- 21.28.6 The INFORMATION_SCHEMA INNODB_LOCKS Table 
+END -- 21.28.6 The INFORMATION_SCHEMA INNODB_LOCKS Table
+BEGIN -- 21.28.7 The INFORMATION_SCHEMA INNODB_LOCK_WAITS Table 
+END -- 21.28.7 The INFORMATION_SCHEMA INNODB_LOCK_WAITS Table
+BEGIN -- 21.28.8 The INFORMATION_SCHEMA INNODB_TRX Table 
+END -- 21.28.8 The INFORMATION_SCHEMA INNODB_TRX Table
+END -- 21.28 InnoDB INFORMATION_SCHEMA Tables
+BEGIN -- 21.29 NDB Cluster INFORMATION_SCHEMA Tables 
+BEGIN -- 21.29.1 The INFORMATION_SCHEMA FILES Table 
+END -- 21.29.1 The INFORMATION_SCHEMA FILES Table
+BEGIN -- 21.29.2 The INFORMATION_SCHEMA ndb_transid_mysql_connection_map Table 
+END -- 21.29.2 The INFORMATION_SCHEMA ndb_transid_mysql_connection_map Table
+END -- 21.29 NDB Cluster INFORMATION_SCHEMA Tables
+BEGIN -- 21.30 Thread Pool INFORMATION_SCHEMA Tables 
+BEGIN -- 21.30.1 The INFORMATION_SCHEMA TP_THREAD_GROUP_STATE Table 
+END -- 21.30.1 The INFORMATION_SCHEMA TP_THREAD_GROUP_STATE Table
+BEGIN -- 21.30.2 The INFORMATION_SCHEMA TP_THREAD_GROUP_STATS Table 
+END -- 21.30.2 The INFORMATION_SCHEMA TP_THREAD_GROUP_STATS Table
+BEGIN -- 21.30.3 The INFORMATION_SCHEMA TP_THREAD_STATE Table 
+END -- 21.30.3 The INFORMATION_SCHEMA TP_THREAD_STATE Table
+END -- 21.30 Thread Pool INFORMATION_SCHEMA Tables
+BEGIN -- 21.31 Extensions to SHOW Statements 
+END -- 21.31 Extensions to SHOW Statements
+END -- 21 INFORMATION_SCHEMA Tables
+
+BEGIN -- 22 MySQL Performance Schema 
+BEGIN -- 22.1 Performance Schema Quick Start 
+END -- 22.1 Performance Schema Quick Start
+BEGIN -- 22.2 Performance Schema Build Configuration 
+END -- 22.2 Performance Schema Build Configuration
+BEGIN -- 22.3 Performance Schema Startup Configuration 
+END -- 22.3 Performance Schema Startup Configuration
+BEGIN -- 22.4 Performance Schema Runtime Configuration 
+BEGIN -- 22.4.1 Performance Schema Event Timing 
+END -- 22.4.1 Performance Schema Event Timing
+BEGIN -- 22.4.2 Performance Schema Event Filtering 
+END -- 22.4.2 Performance Schema Event Filtering
+BEGIN -- 22.4.3 Event Pre-Filtering 
+END -- 22.4.3 Event Pre-Filtering
+BEGIN -- 22.4.4 Naming Instruments or Consumers for Filtering Operations 
+END -- 22.4.4 Naming Instruments or Consumers for Filtering Operations
+BEGIN -- 22.4.5 Determining What Is Instrumented 
+END -- 22.4.5 Determining What Is Instrumented
+END -- 22.4 Performance Schema Runtime Configuration
+BEGIN -- 22.5 Performance Schema Queries 
+END -- 22.5 Performance Schema Queries
+BEGIN -- 22.6 Performance Schema Instrument Naming Conventions 
+END -- 22.6 Performance Schema Instrument Naming Conventions
+BEGIN -- 22.7 Performance Schema Status Monitoring 
+END -- 22.7 Performance Schema Status Monitoring
+BEGIN -- 22.8 Performance Schema General Table Characteristics 
+END -- 22.8 Performance Schema General Table Characteristics
+BEGIN -- 22.9 Performance Schema Table Descriptions 
+BEGIN -- 22.9.1 Performance Schema Table Index 
+END -- 22.9.1 Performance Schema Table Index
+BEGIN -- 22.9.2 Performance Schema Setup Tables 
+END -- 22.9.2 Performance Schema Setup Tables
+BEGIN -- 22.9.3 Performance Schema Instance Tables 
+END -- 22.9.3 Performance Schema Instance Tables
+BEGIN -- 22.9.4 Performance Schema Wait Event Tables 
+END -- 22.9.4 Performance Schema Wait Event Tables
+BEGIN -- 22.9.5 Performance Schema Summary Tables 
+END -- 22.9.5 Performance Schema Summary Tables
+BEGIN -- 22.9.6 Performance Schema Miscellaneous Tables 
+END -- 22.9.6 Performance Schema Miscellaneous Tables
+END -- 22.9 Performance Schema Table Descriptions
+BEGIN -- 22.10 Performance Schema Option and Variable Reference 
+END -- 22.10 Performance Schema Option and Variable Reference
+BEGIN -- 22.11 Performance Schema System Variables 
+END -- 22.11 Performance Schema System Variables
+BEGIN -- 22.12 Performance Schema Status Variables 
+END -- 22.12 Performance Schema Status Variables
+BEGIN -- 22.13 Performance Schema and Plugins 
+END -- 22.13 Performance Schema and Plugins
+BEGIN -- 22.14 Using the Performance Schema to Diagnose Problems 
+END -- 22.14 Using the Performance Schema to Diagnose Problems
+END -- 22 MySQL Performance Schema
+
+BEGIN -- 23 Connectors and APIs 
+BEGIN -- 23.1 MySQL Connector/C 
+END -- 23.1 MySQL Connector/C
+BEGIN -- 23.2 MySQL Connector/C++ 
+END -- 23.2 MySQL Connector/C++
+BEGIN -- 23.3 MySQL Connector/J 
+END -- 23.3 MySQL Connector/J
+BEGIN -- 23.4 MySQL Connector/NET 
+END -- 23.4 MySQL Connector/NET
+BEGIN -- 23.5 MySQL Connector/ODBC 
+END -- 23.5 MySQL Connector/ODBC
+BEGIN -- 23.6 MySQL Connector/Python 
+END -- 23.6 MySQL Connector/Python
+BEGIN -- 23.7 libmysqld, the Embedded MySQL Server Library 
+BEGIN -- 23.7.1 Compiling Programs with libmysqld 
+END -- 23.7.1 Compiling Programs with libmysqld
+BEGIN -- 23.7.2 Restrictions When Using the Embedded MySQL Server 
+END -- 23.7.2 Restrictions When Using the Embedded MySQL Server
+BEGIN -- 23.7.3 Options with the Embedded Server 
+END -- 23.7.3 Options with the Embedded Server
+BEGIN -- 23.7.4 Embedded Server Examples 
+END -- 23.7.4 Embedded Server Examples
+END -- 23.7 libmysqld, the Embedded MySQL Server Library
+BEGIN -- 23.8 MySQL C API 
+BEGIN -- 23.8.1 MySQL C API Implementations 
+END -- 23.8.1 MySQL C API Implementations
+BEGIN -- 23.8.2 Simultaneous MySQL Server and Connector/C Installations 
+END -- 23.8.2 Simultaneous MySQL Server and Connector/C Installations
+BEGIN -- 23.8.3 Example C API Client Programs 
+END -- 23.8.3 Example C API Client Programs
+BEGIN -- 23.8.4 Building and Running C API Client Programs 
+END -- 23.8.4 Building and Running C API Client Programs
+BEGIN -- 23.8.5 C API Data Structures 
+END -- 23.8.5 C API Data Structures
+BEGIN -- 23.8.6 C API Function Overview 
+END -- 23.8.6 C API Function Overview
+BEGIN -- 23.8.7 C API Function Descriptions 
+END -- 23.8.7 C API Function Descriptions
+BEGIN -- 23.8.8 C API Prepared Statements 
+END -- 23.8.8 C API Prepared Statements
+BEGIN -- 23.8.9 C API Prepared Statement Data Structures 
+END -- 23.8.9 C API Prepared Statement Data Structures
+BEGIN -- 23.8.10 C API Prepared Statement Function Overview 
+END -- 23.8.10 C API Prepared Statement Function Overview
+BEGIN -- 23.8.11 C API Prepared Statement Function Descriptions 
+END -- 23.8.11 C API Prepared Statement Function Descriptions
+BEGIN -- 23.8.12 C API Threaded Function Descriptions 
+END -- 23.8.12 C API Threaded Function Descriptions
+BEGIN -- 23.8.13 C API Embedded Server Function Descriptions 
+END -- 23.8.13 C API Embedded Server Function Descriptions
+BEGIN -- 23.8.14 C API Client Plugin Functions 
+END -- 23.8.14 C API Client Plugin Functions
+BEGIN -- 23.8.15 C API Encrypted Connection Support 
+END -- 23.8.15 C API Encrypted Connection Support
+BEGIN -- 23.8.16 C API Multiple Statement Execution Support 
+END -- 23.8.16 C API Multiple Statement Execution Support
+BEGIN -- 23.8.17 C API Prepared Statement Handling of Date and Time Values 
+END -- 23.8.17 C API Prepared Statement Handling of Date and Time Values
+BEGIN -- 23.8.18 C API Prepared CALL Statement Support 
+END -- 23.8.18 C API Prepared CALL Statement Support
+BEGIN -- 23.8.19 C API Prepared Statement Problems 
+END -- 23.8.19 C API Prepared Statement Problems
+BEGIN -- 23.8.20 C API Automatic Reconnection Control 
+END -- 23.8.20 C API Automatic Reconnection Control
+BEGIN -- 23.8.21 C API Common Issues 
+END -- 23.8.21 C API Common Issues
+END -- 23.8 MySQL C API
+BEGIN -- 23.9 MySQL PHP API 
+END -- 23.9 MySQL PHP API
+BEGIN -- 23.10 MySQL Perl API 
+END -- 23.10 MySQL Perl API
+BEGIN -- 23.11 MySQL Python API 
+END -- 23.11 MySQL Python API
+BEGIN -- 23.12 MySQL Ruby APIs 
+BEGIN -- 23.12.1 The MySQL/Ruby API 
+END -- 23.12.1 The MySQL/Ruby API
+BEGIN -- 23.12.2 The Ruby/MySQL API 
+END -- 23.12.2 The Ruby/MySQL API
+END -- 23.12 MySQL Ruby APIs
+BEGIN -- 23.13 MySQL Tcl API 
+END -- 23.13 MySQL Tcl API
+BEGIN -- 23.14 MySQL Eiffel Wrapper 
+END -- 23.14 MySQL Eiffel Wrapper
+END -- 23 Connectors and APIs
+
+BEGIN -- 24 Extending MySQL 
+BEGIN -- 24.1 MySQL Internals 
+BEGIN -- 24.1.1 MySQL Threads 
+END -- 24.1.1 MySQL Threads
+BEGIN -- 24.1.2 The MySQL Test Suite 
+END -- 24.1.2 The MySQL Test Suite
+END -- 24.1 MySQL Internals
+BEGIN -- 24.2 The MySQL Plugin API 
+BEGIN -- 24.2.1 Types of Plugins 
+END -- 24.2.1 Types of Plugins
+BEGIN -- 24.2.2 Plugin API Characteristics 
+END -- 24.2.2 Plugin API Characteristics
+BEGIN -- 24.2.3 Plugin API Components 
+END -- 24.2.3 Plugin API Components
+BEGIN -- 24.2.4 Writing Plugins 
+END -- 24.2.4 Writing Plugins
+END -- 24.2 The MySQL Plugin API
+BEGIN -- 24.3 MySQL Services for Plugins 
+END -- 24.3 MySQL Services for Plugins
+BEGIN -- 24.4 Adding New Functions to MySQL 
+BEGIN -- 24.4.1 Features of the User-Defined Function Interface 
+END -- 24.4.1 Features of the User-Defined Function Interface
+BEGIN -- 24.4.2 Adding a New User-Defined Function 
+END -- 24.4.2 Adding a New User-Defined Function
+BEGIN -- 24.4.3 Adding a New Native Function 
+END -- 24.4.3 Adding a New Native Function
+END -- 24.4 Adding New Functions to MySQL
+BEGIN -- 24.5 Debugging and Porting MySQL 
+BEGIN -- 24.5.1 Debugging a MySQL Server 
+END -- 24.5.1 Debugging a MySQL Server
+BEGIN -- 24.5.2 Debugging a MySQL Client 
+END -- 24.5.2 Debugging a MySQL Client
+BEGIN -- 24.5.3 The DBUG Package 
+END -- 24.5.3 The DBUG Package
+END -- 24.5 Debugging and Porting MySQL
+END -- 24 Extending MySQL
+
+BEGIN -- 25 MySQL Enterprise Edition 
+BEGIN -- 25.1 MySQL Enterprise Monitor Overview 
+END -- 25.1 MySQL Enterprise Monitor Overview
+BEGIN -- 25.2 MySQL Enterprise Backup Overview 
+END -- 25.2 MySQL Enterprise Backup Overview
+BEGIN -- 25.3 MySQL Enterprise Security Overview 
+END -- 25.3 MySQL Enterprise Security Overview
+BEGIN -- 25.4 MySQL Enterprise Encryption Overview 
+END -- 25.4 MySQL Enterprise Encryption Overview
+BEGIN -- 25.5 MySQL Enterprise Audit Overview 
+END -- 25.5 MySQL Enterprise Audit Overview
+BEGIN -- 25.6 MySQL Enterprise Firewall Overview 
+END -- 25.6 MySQL Enterprise Firewall Overview
+BEGIN -- 25.7 MySQL Enterprise Thread Pool Overview 
+END -- 25.7 MySQL Enterprise Thread Pool Overview
+END -- 25 MySQL Enterprise Edition
+
+BEGIN -- A MySQL 5.5 Frequently Asked Questions 
+BEGIN -- A.1 MySQL 5.5 FAQ: General 
+END -- A.1 MySQL 5.5 FAQ: General
+BEGIN -- A.2 MySQL 5.5 FAQ: Storage Engines 
+END -- A.2 MySQL 5.5 FAQ: Storage Engines
+BEGIN -- A.3 MySQL 5.5 FAQ: Server SQL Mode 
+END -- A.3 MySQL 5.5 FAQ: Server SQL Mode
+BEGIN -- A.4 MySQL 5.5 FAQ: Stored Procedures and Functions 
+END -- A.4 MySQL 5.5 FAQ: Stored Procedures and Functions
+BEGIN -- A.5 MySQL 5.5 FAQ: Triggers 
+END -- A.5 MySQL 5.5 FAQ: Triggers
+BEGIN -- A.6 MySQL 5.5 FAQ: Views 
+END -- A.6 MySQL 5.5 FAQ: Views
+BEGIN -- A.7 MySQL 5.5 FAQ: INFORMATION_SCHEMA 
+END -- A.7 MySQL 5.5 FAQ: INFORMATION_SCHEMA
+BEGIN -- A.8 MySQL 5.5 FAQ: Migration 
+END -- A.8 MySQL 5.5 FAQ: Migration
+BEGIN -- A.9 MySQL 5.5 FAQ: Security 
+END -- A.9 MySQL 5.5 FAQ: Security
+BEGIN -- A.10 MySQL FAQ: MySQL 5.5 and NDB Cluster 
+END -- A.10 MySQL FAQ: MySQL 5.5 and NDB Cluster
+BEGIN -- A.11 MySQL 5.5 FAQ: MySQL Chinese, Japanese, and Korean Character Sets 
+END -- A.11 MySQL 5.5 FAQ: MySQL Chinese, Japanese, and Korean Character Sets
+BEGIN -- A.12 MySQL 5.5 FAQ: Connectors & APIs 
+END -- A.12 MySQL 5.5 FAQ: Connectors & APIs
+BEGIN -- A.13 MySQL 5.5 FAQ: Replication 
+END -- A.13 MySQL 5.5 FAQ: Replication
+BEGIN -- A.14 MySQL 5.5 FAQ: MySQL Enterprise Thread Pool 
+END -- A.14 MySQL 5.5 FAQ: MySQL Enterprise Thread Pool
+BEGIN -- A.15 MySQL 5.5 FAQ: InnoDB Change Buffer 
+END -- A.15 MySQL 5.5 FAQ: InnoDB Change Buffer
+BEGIN -- A.16 MySQL 5.5 FAQ: Virtualization Support 
+END -- A.16 MySQL 5.5 FAQ: Virtualization Support
+END -- A MySQL 5.5 Frequently Asked Questions
+
+BEGIN -- B Errors, Error Codes, and Common Problems 
+BEGIN -- B.1 Sources of Error Information 
+END -- B.1 Sources of Error Information
+BEGIN -- B.2 Types of Error Values 
+END -- B.2 Types of Error Values
+BEGIN -- B.3 Server Error Codes and Messages 
+END -- B.3 Server Error Codes and Messages
+BEGIN -- B.4 Client Error Codes and Messages 
+END -- B.4 Client Error Codes and Messages
+BEGIN -- B.5 Problems and Common Errors 
+BEGIN -- B.5.1 How to Determine What Is Causing a Problem 
+END -- B.5.1 How to Determine What Is Causing a Problem
+BEGIN -- B.5.2 Common Errors When Using MySQL Programs 
+END -- B.5.2 Common Errors When Using MySQL Programs
+BEGIN -- B.5.3 Administration-Related Issues 
+END -- B.5.3 Administration-Related Issues
+BEGIN -- B.5.4 Query-Related Issues 
+END -- B.5.4 Query-Related Issues
+BEGIN -- B.5.5 Optimizer-Related Issues 
+END -- B.5.5 Optimizer-Related Issues
+BEGIN -- B.5.6 Table Definition-Related Issues 
+END -- B.5.6 Table Definition-Related Issues
+BEGIN -- B.5.7 Known Issues in MySQL 
+END -- B.5.7 Known Issues in MySQL
+END -- B.5 Problems and Common Errors
+END -- B Errors, Error Codes, and Common Problems
+
+BEGIN -- C Restrictions and Limits 
+BEGIN -- C.1 Restrictions on Stored Programs 
+END -- C.1 Restrictions on Stored Programs
+BEGIN -- C.2 Restrictions on Condition Handling 
+END -- C.2 Restrictions on Condition Handling
+BEGIN -- C.3 Restrictions on Server-Side Cursors 
+END -- C.3 Restrictions on Server-Side Cursors
+BEGIN -- C.4 Restrictions on Subqueries 
+END -- C.4 Restrictions on Subqueries
+BEGIN -- C.5 Restrictions on Views 
+END -- C.5 Restrictions on Views
+BEGIN -- C.6 Restrictions on XA Transactions 
+END -- C.6 Restrictions on XA Transactions
+BEGIN -- C.7 Restrictions on Character Sets 
+END -- C.7 Restrictions on Character Sets
+BEGIN -- C.8 Restrictions on Performance Schema 
+END -- C.8 Restrictions on Performance Schema
+BEGIN -- C.9 Restrictions on Pluggable Authentication 
+END -- C.9 Restrictions on Pluggable Authentication
+BEGIN -- C.10 Limits in MySQL 
+BEGIN -- C.10.1 Limits on Joins 
+END -- C.10.1 Limits on Joins
+BEGIN -- C.10.2 Limits on Number of Databases and Tables 
+END -- C.10.2 Limits on Number of Databases and Tables
+BEGIN -- C.10.3 Limits on Table Size 
+END -- C.10.3 Limits on Table Size
+BEGIN -- C.10.4 Limits on Table Column Count and Row Size 
+END -- C.10.4 Limits on Table Column Count and Row Size
+BEGIN -- C.10.5 Limits Imposed by .frm File Structure 
+END -- C.10.5 Limits Imposed by .frm File Structure
+BEGIN -- C.10.6 Windows Platform Limitations 
+END -- C.10.6 Windows Platform Limitations
+END -- C.10 Limits in MySQL
+END -- C Restrictions and Limits
+
+BEGIN -- D Indexes 
+BEGIN -- General Index 
+END -- General Index
+BEGIN -- C Function Index 
+END -- C Function Index
+BEGIN -- Command Index 
+END -- Command Index
+BEGIN -- Function Index 
+END -- Function Index
+BEGIN -- INFORMATION_SCHEMA Index 
+END -- INFORMATION_SCHEMA Index
+BEGIN -- Join Types Index 
+END -- Join Types Index
+BEGIN -- Operator Index 
+END -- Operator Index
+BEGIN -- Option Index 
+END -- Option Index
+BEGIN -- Privileges Index 
+END -- Privileges Index
+BEGIN -- SQL Modes Index 
+END -- SQL Modes Index
+BEGIN -- Statement/Syntax Index 
+END -- Statement/Syntax Index
+BEGIN -- Status Variable Index 
+END -- Status Variable Index
+BEGIN -- System Variable Index 
+END -- System Variable Index
+BEGIN -- Transaction Isolation Level Index 
+END -- Transaction Isolation Level Index
+BEGIN -- MySQL Glossary 
+END -- MySQL Glossary
+END -- D Indexes
+
+
+
+
+
