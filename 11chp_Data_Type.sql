@@ -1,7 +1,5 @@
 BEGIN -- Chapter 11 Data Type
 
-
-
 -- MySQL supports a number of SQL data types in several categories: numeric types, 
 -- date and time types, string (character and byte) types, and spatial types. 
 
@@ -159,7 +157,7 @@ END -- 11.1.3 String Type Overview
 
 END -- 11.1 Data Type Overview
 
-BEGIN -- 11.2 Numeric Types
+BEGIN -- 11.2 Numeric Types ok
 
 BEGIN -- 11.2.1 Integer Types (Exact Value) - INTEGER, INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT ok
 
@@ -169,19 +167,46 @@ BEGIN -- 11.2.2 Fixed-Point Types (Exact Value) - DECIMAL, NUMERIC ok
 
 END -- 11.2.2 Fixed-Point Types (Exact Value) - DECIMAL, NUMERIC
 
-BEGIN -- 11.2.3 Floating-Point Types (Approximate Value) - FLOAT, DOUBLE 
+BEGIN -- 11.2.3 Floating-Point Types (Approximate Value) - FLOAT, DOUBLE ok
 
 END -- 11.2.3 Floating-Point Types (Approximate Value) - FLOAT, DOUBLE
 
-BEGIN -- 11.2.4 Bit-Value Type - BIT 
+BEGIN -- 11.2.4 Bit-Value Type - BIT ok
 
 END -- 11.2.4 Bit-Value Type - BIT
 
-BEGIN -- 11.2.5 Numeric Type Attributes 
+BEGIN -- 11.2.5 Numeric Type Attributes ok
+
+-- If you specify ZEROFILL for a numeric column, MySQL automatically adds the UNSIGNED attribute to the column.
+-- AUTO_INCREMENT sequnces begin with 1.
 
 END -- 11.2.5 Numeric Type Attributes
 
-BEGIN -- 11.2.6 Out-of-Range and Overflow Handling 
+BEGIN -- 11.2.6 Out-of-Range and Overflow Handling ok
+
+CREATE TABLE t1(i1 TINYINT,i2 TINYINT UNSIGNED);
+SELECT @@sql_mode;
+SET @@sql_mode='TRADITIONAL';
+INSERT INTO t1(i1,i2) VALUES(256,256);
+SELECT * FROM t1;
+
+SET @@sql_mode='';
+INSERT INTO t1(i1,i2) VALUES(256,256);
+SHOW WARNINGS;
+SELECT * FROM t1;
+
+SELECT 9223372036854775807 + 1;
+SELECT CAST(9223372036854775807 AS UNSIGNED)+1;
+
+SELECT 9223372036854775807.0 +1
+
+SET @@sql_mode='';
+SELECT CAST(0 AS UNSIGNED)-1;
+
+SET @@sql_mode='NO_UNSIGNED_SUBTRACTION';
+SELECT CAST(0 AS UNSIGNED)-1;
+
+
 
 END -- 11.2.6 Out-of-Range and Overflow Handling
 
@@ -189,35 +214,86 @@ END -- 11.2 Numeric Types
 
 BEGIN -- 11.3 Date and Time Types 
 
-BEGIN -- 11.3.1 The DATE, DATETIME, and TIMESTAMP Types 
+-- The date and time types for representing temporal values are DATE, TIME, DATETIME, TIMESTAMP, and YEAR.
+
+
+BEGIN -- 11.3.1 The DATE, DATETIME, and TIMESTAMP Types ok
 
 END -- 11.3.1 The DATE, DATETIME, and TIMESTAMP Types
 
-BEGIN -- 11.3.2 The TIME Type 
+BEGIN -- 11.3.2 The TIME Type ok
+
+SELECT CAST('11:12' AS TIME);
 
 END -- 11.3.2 The TIME Type
 
-BEGIN -- 11.3.3 The YEAR Type 
+BEGIN -- 11.3.3 The YEAR Type ok
+
+-- The Year type is a 1-byte type used to represent year values
+-- YEAR(4) and YEAR(2) differ in display format, but have the same 
+-- range of values. For 4-digit format, MySQL displays YEAR values in YYYY format, 
+-- with a range of 1901 to 2155, or 0000. For 2-digit format, 
+-- MySQL displays only the last two (least significant) digits; 
+-- for example, 70 (1970 or 2070) or 69 (2069).
 
 END -- 11.3.3 The YEAR Type
 
-BEGIN -- 11.3.4 YEAR(2) Limitations and Migrating to YEAR(4) 
+BEGIN -- 11.3.4 YEAR(2) Limitations and Migrating to YEAR(4) ok
+
+CREATE TABLE ty(y2 YEAR,y4 YEAR(4));
+
+INSERT INTO ty(y2) VALUES(1912),(2012),(2112);
+
+UPDATE ty SET y4=y2;
+
+SELECT * FROM ty;
 
 END -- 11.3.4 YEAR(2) Limitations and Migrating to YEAR(4)
 
-BEGIN -- 11.3.5 Automatic Initialization and Updating for TIMESTAMP 
+BEGIN -- 11.3.5 Automatic Initialization and Updating for TIMESTAMP ok
+
+DROP TABLE t1;
+CREATE TABLE t1(
+	ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+	);
+
+DROP TABLE t1;
+CREATE TABLE t1(ts TIMESTAMP);
+
+CREATE TABLE t1(
+	ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	);
+	
+CREATE TABLE t1(
+	ts TIMESTAMP DEFAULT 0
+);
+
+CREATE TABLE t1(
+	ts TIMESTAMP DEFAULT 0 ON UPDATE CURRENT_TIMESTAMP
+	);
+	
 
 END -- 11.3.5 Automatic Initialization and Updating for TIMESTAMP
 
-BEGIN -- 11.3.6 Fractional Seconds in Time Values 
+BEGIN -- 11.3.6 Fractional Seconds in Time Values ok
+
+SELECT MICROSECOND('2010-12-10 14:12:09.019473');
+
+-- However, when MySQL stores a value into a column of any temporal data type, it discards any fractional part and does not store it.
 
 END -- 11.3.6 Fractional Seconds in Time Values
 
-BEGIN -- 11.3.7 Conversion Between Date and Time Types 
+BEGIN -- 11.3.7 Conversion Between Date and Time Types ok
+
+date_col=CAST(DATETIME AS DATE);
+
+SELECT CURTIME(),CURTIME()+0;
+SELECT NOW(),NOW()+0;
+
 
 END -- 11.3.7 Conversion Between Date and Time Types
 
-BEGIN -- 11.3.8 Two-Digit Years in Dates 
+BEGIN -- 11.3.8 Two-Digit Years in Dates ok
 
 END -- 11.3.8 Two-Digit Years in Dates
 
