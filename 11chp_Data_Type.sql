@@ -212,7 +212,7 @@ END -- 11.2.6 Out-of-Range and Overflow Handling
 
 END -- 11.2 Numeric Types
 
-BEGIN -- 11.3 Date and Time Types 
+BEGIN -- 11.3 Date and Time Types ok
 
 -- The date and time types for representing temporal values are DATE, TIME, DATETIME, TIMESTAMP, and YEAR.
 
@@ -301,11 +301,30 @@ END -- 11.3 Date and Time Types
 
 BEGIN -- 11.4 String Types 
 
-BEGIN -- 11.4.1 The CHAR and VARCHAR Types 
+BEGIN -- 11.4.1 The CHAR and VARCHAR Types ok
+
+-- the length of char is from 0 to 255
+-- Values in VARCHAR columns are variable-length 
+-- strings. The length can be specified as a value from 0 to 65,535. 
+
+CREATE TABLE vc(v VARCHAR(4),c CHAR(4));
+INSERT INTO vc VALUES('ab  ','ab  ');
+SELECT CONCAT('(',v,')'),CONCAT('(',c,')') FROM vc;
+
+CREATE TABLE NAMES(myname CHAR(10));
+INSERT INTO NAMES VALUES('Monty');
+
+SELECT myname='Monty',myname='Monty    ' FROM NAMES;
+
+SELECT myname LIKE 'Monty',myname LIKE 'monty   ' FROM NAMES;
+
 
 END -- 11.4.1 The CHAR and VARCHAR Types
 
 BEGIN -- 11.4.2 The BINARY and VARBINARY Types 
+
+
+
 
 END -- 11.4.2 The BINARY and VARBINARY Types
 
