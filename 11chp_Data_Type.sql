@@ -1,4 +1,4 @@
-BEGIN -- Chapter 11 Data Type
+BEGIN -- Chapter 11 Data Type ok but some section need perfect
 
 -- MySQL supports a number of SQL data types in several categories: numeric types, 
 -- date and time types, string (character and byte) types, and spatial types. 
@@ -299,7 +299,7 @@ END -- 11.3.8 Two-Digit Years in Dates
 
 END -- 11.3 Date and Time Types
 
-BEGIN -- 11.4 String Types 
+BEGIN -- 11.4 String Types ok
 
 BEGIN -- 11.4.1 The CHAR and VARCHAR Types ok
 
@@ -321,22 +321,82 @@ SELECT myname LIKE 'Monty',myname LIKE 'monty   ' FROM NAMES;
 
 END -- 11.4.1 The CHAR and VARCHAR Types
 
-BEGIN -- 11.4.2 The BINARY and VARBINARY Types 
+BEGIN -- 11.4.2 The BINARY and VARBINARY Types ok
 
-
-
+-- the length for BINARY and VARBINARY is a length in bytes rather than in characters.
+CREATE TABLE tb (c BINARY(3));
+SELECT * FROM tb;
+INSERT INTO tb SET c='a';
+SELECT HEX(c),c='a',c='a\0\0' FROM tb;
 
 END -- 11.4.2 The BINARY and VARBINARY Types
 
-BEGIN -- 11.4.3 The BLOB and TEXT Types 
+BEGIN -- 11.4.3 The BLOB and TEXT Types ok
+
+-- BLOB values are treated as binary strings (byte strings). 
+-- TEXT values are treated as nonbinary strings (character strings).
+ 
+-- BLOB and TEXT differ from VARBINARY and VARCHAR in the following ways: 
+-- 1.For indexes on BLOB and TEXT columns, you must specify an index prefix length. For CHAR and VARCHAR, a prefix length is optional. See Section 8.3.4, “Column Indexes”.
+-- 2.BLOB and TEXT columns cannot have DEFAULT values.
+
+CREATE TABLE shirts(
+	NAME VARCHAR(40),
+	size ENUM('x-small','small','medium','large','x-large')
+);
+
+INSERT INTO shirts(NAME,size) VALUES('dress shirt','large'), ('t-shirt','medium'),
+  ('polo shirt','small');
+ 
+ SELECT NAME,size FROM shirts WHERE size='medium';
+ 
+--  For example, a column specified as ENUM('Mercury', 'Venus', 'Earth') can have any of the values shown here. The index of each value is also shown.
+-- Value	Index
+-- NULL	NULL
+-- ''	0
+-- 'Mercury'	1
+-- 'Venus'	2
+-- 'Earth'	3
+
+-- An ENUM column can have a maximum of 65,535 distinct elements. (The practical limit is less than 3000.) A table can have no more than 255 unique element list definitions among its ENUM and SET columns considered as a group. For more information on these limits
+
 
 END -- 11.4.3 The BLOB and TEXT Types
 
-BEGIN -- 11.4.4 The ENUM Type 
+BEGIN -- 11.4.4 The ENUM Type ok
 
 END -- 11.4.4 The ENUM Type
 
-BEGIN -- 11.4.5 The SET Type 
+BEGIN -- 11.4.5 The SET Type ok
+
+-- For example, a column specified as SET('one', 'two') NOT NULL can have any of these values:
+-- ''
+-- 'one'
+-- 'two'
+-- 'one,two'
+
+-- A SET column can have a maximum of 64 distinct members. A table can have no more than 255 unique element list definitions among its ENUM and SET columns considered as a group.
+DROP TABLE myset;
+CREATE TABLE myset (col SET('a','b','c','d'));
+INSERT INTO myset (col) VALUES ('a,d'), ('d,a'), ('a,d,a'), ('a,d,d'), ('d,a,d');
+SELECT col FROM myset;
+
+-- If you set a SET column to an unsupported value, the value is ignored and a warning is issued:
+SET @@sql_mode='';
+INSERT INTO myset(col) VALUES('a,d,d,s');
+SHOW WARNINGS;
+SELECT col FROM myset;
+
+-- use find_in_set or like searching set value.
+SELECT * FROM tbl_name WHERE FIND_IN_SET('value',set_col);
+SELECT * FROM tbl_name WHERE set_col LIKE '%value%'
+
+SELECT * FROM tbl_name WHERE set_col&1;
+SELECT * FROM tbl_name WHERE set_col='val1,val2';
+
+
+
+
 
 END -- 11.4.5 The SET Type
 
@@ -384,9 +444,36 @@ END -- 11.5 Spatial Data Types
 
 BEGIN -- 11.6 Data Type Default Values 
 
+-- the default value must be a constant; it cannot be a function or an expression. 
+-- you can specify CURRENT_TIMESTAMP as the default for a TIMESTAMP column
+-- BLOB and TEXT columns cannot be assigned a default value.
+-- PRIMARY KEY columns must be NOT NULL
+
+
 END -- 11.6 Data Type Default Values
 
-BEGIN -- 11.7 Data Type Storage Requirements 
+BEGIN -- 11.7 Data Type Storage Requirements ok
+
+-- Numeric Type Storage Requirements
+-- Data Type	Storage Required
+-- TINYINT	1 byte
+-- SMALLINT	2 bytes
+-- MEDIUMINT	3 bytes
+-- INT, INTEGER	4 bytes
+-- BIGINT	8 bytes
+-- FLOAT(p)	4 bytes if 0 <= p <= 24, 8 bytes if 25 <= p <= 53
+-- FLOAT	4 bytes
+-- DOUBLE [PRECISION], REAL	8 bytes
+-- DECIMAL(M,D), NUMERIC(M,D)	Varies; see following discussion
+-- BIT(M)	approximately (M+7)/8 bytes
+
+-- Date and Time Type Storage Requirements
+-- Data Type	Storage Required
+-- DATE	3 bytes
+-- TIME	3 bytes
+-- DATETIME	8 bytes
+-- TIMESTAMP	4 bytes
+-- YEAR	1 byte
 
 END -- 11.7 Data Type Storage Requirements
 
@@ -395,6 +482,29 @@ BEGIN -- 11.8 Choosing the Right Type for a Column
 END -- 11.8 Choosing the Right Type for a Column
 
 BEGIN -- 11.9 Using Data Types from Other Database Engines 
+
+
+
+-- Other Vendor Type	MySQL Type
+-- BOOL	TINYINT
+-- BOOLEAN	TINYINT
+-- CHARACTER VARYING(M)	VARCHAR(M)
+-- FIXED	DECIMAL
+-- FLOAT4	FLOAT
+-- FLOAT8	DOUBLE
+-- INT1	TINYINT
+-- INT2	SMALLINT
+-- INT3	MEDIUMINT
+-- INT4	INT
+-- INT8	BIGINT
+-- LONG VARBINARY	MEDIUMBLOB
+-- LONG VARCHAR	MEDIUMTEXT
+-- LONG	MEDIUMTEXT
+-- MIDDLEINT	MEDIUMINT
+-- NUMERIC	DECIMAL
+DROP TABLE t;
+CREATE TABLE t(a BOOL,b FLOAT8,c LONG VARCHAR,d NUMERIC);
+DESCRIBE t;
 
 END -- 11.9 Using Data Types from Other Database Engines
 
