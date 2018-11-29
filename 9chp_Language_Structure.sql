@@ -1,6 +1,6 @@
 BEGIN -- 9 Language Structure 
 
-BEGIN -- 9.1 Literal Values 
+BEGIN -- 9.1 Literal Values ok
 
 BEGIN -- 9.1.1 String Literals ok
 
@@ -131,7 +131,7 @@ END -- 9.1.7 NULL Values
 
 END -- 9.1 Literal Values 
 
-BEGIN -- 9.2 Schema Object Names 
+BEGIN -- 9.2 Schema Object Names ok
 
 BEGIN -- 9.2.1 Identifier Qualifiers ok
 
@@ -148,23 +148,165 @@ RENAME TABLE t1 TO t2;
 
 END -- 9.2.2 Identifier Case Sensitivity 
 
-BEGIN -- 9.2.3 Mapping of Identifiers to File Names 
+BEGIN -- 9.2.3 Mapping of Identifiers to File Names ok
+
+SHOW TABLES;
+SHOW COLUMNS FROM a;
 
 END -- 9.2.3 Mapping of Identifiers to File Names 
 
-BEGIN -- 9.2.4 Function Name Parsing and Resolution 
+BEGIN -- 9.2.4 Function Name Parsing and Resolution ok
+
+CREATE TABLE COUNT(i INT) -- 报错
+CREATE TABLE `count`(i INT); -- 家``才能执行成功
+
+SELECT COUNT(*) FROM mytable;
+SELECT COUNT (*) FROM mytable;
+
+-- User-defined functions and stored functions share the same namespace, so you cannot create a UDF and a stored function with the same name.
 
 END -- 9.2.4 Function Name Parsing and Resolution 
 
 END -- 9.2 Schema Object Names 
 
+BEGIN -- 9.3 Keywords and Reserved Words ok
 
-BEGIN -- 9.3 Keywords and Reserved Words 
+
+
 END -- 9.3 Keywords and Reserved Words 
-BEGIN -- 9.4 User-Defined Variables 
+
+BEGIN -- 9.4 User-Defined Variables ok
+
+-- You can store a value in a user-defined variable in one statement and refer to it later in another statement. This enables you to pass values from one statement to another.
+-- 
+-- User variables are written as @var_name
+
+SET @t1=1,@t2=2,@t3:=4;
+SELECT @t1,@t2,@t3,@t4:=@t1+@t2+@t3; -- 在set以外的语句赋值需要使用:=
+
+SET @v1=X'41';
+SET @v2=X'41'+0;
+SET @v3=CAST(X'41' AS UNSIGNED);
+SELECT @v1,@v2,@v3;
+
+-- Hexadecimal or bit values assigned to user variables are treated as binary strings.
+
+SET @v1=b'1000001';
+SET @v2=b'1000001'+0;
+SET @v3=CAST(b'1000001' AS UNSIGNED);
+SELECT @v1,@v2,@v3;
+
+SET @a=@a+1;
+SELECT @a;
+
+SELECT @a,@a:=@a+1;
+
+SET @a='test';
+SELECT @a,(@a:=20)
+
+-- If the value of a user variable is selected in a result set, it is returned to the client as a string.
+-- 
+-- If you refer to a variable that has not been initialized, it has a value of NULL and a type of string.
+
+SELECT b FROM t;
+SET @col='b';
+SELECT @col FROM t;
+
+SELECT `@col` FROM t;
+
+SET @col='`b`';
+SELECT @col FROM t;
+
+SET @c='b';
+SET @s=CONCAT('select ',@c,' from t');
+PREPARE stmt FROM @s;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
 END -- 9.4 User-Defined Variables 
-BEGIN -- 9.5 Expression Syntax 
+
+BEGIN -- 9.5 Expression Syntax ok
+
+-- expr:
+--     expr OR expr
+--   | expr || expr
+--   | expr XOR expr
+--   | expr AND expr
+--   | expr && expr
+--   | NOT expr
+--   | ! expr
+--   | boolean_primary IS [NOT] {TRUE | FALSE | UNKNOWN}
+--   | boolean_primary
+-- 
+-- boolean_primary:
+--     boolean_primary IS [NOT] NULL
+--   | boolean_primary <=> predicate
+--   | boolean_primary comparison_operator predicate
+--   | boolean_primary comparison_operator {ALL | ANY} (subquery)
+--   | predicate
+-- 
+-- comparison_operator: = | >= | > | <= | < | <> | !=
+-- 
+-- predicate:
+--     bit_expr [NOT] IN (subquery)
+--   | bit_expr [NOT] IN (expr [, expr] ...)
+--   | bit_expr [NOT] BETWEEN bit_expr AND predicate
+--   | bit_expr SOUNDS LIKE bit_expr
+--   | bit_expr [NOT] LIKE simple_expr [ESCAPE simple_expr]
+--   | bit_expr [NOT] REGEXP bit_expr
+--   | bit_expr
+-- 
+-- bit_expr:
+--     bit_expr | bit_expr
+--   | bit_expr & bit_expr
+--   | bit_expr << bit_expr
+--   | bit_expr >> bit_expr
+--   | bit_expr + bit_expr
+--   | bit_expr - bit_expr
+--   | bit_expr * bit_expr
+--   | bit_expr / bit_expr
+--   | bit_expr DIV bit_expr
+--   | bit_expr MOD bit_expr
+--   | bit_expr % bit_expr
+--   | bit_expr ^ bit_expr
+--   | bit_expr + interval_expr
+--   | bit_expr - interval_expr
+--   | simple_expr
+-- 
+-- simple_expr:
+--     literal
+--   | identifier
+--   | function_call
+--   | simple_expr COLLATE collation_name
+--   | param_marker
+--   | variable
+--   | simple_expr || simple_expr
+--   | + simple_expr
+--   | - simple_expr
+--   | ~ simple_expr
+--   | ! simple_expr
+--   | BINARY simple_expr
+--   | (expr [, expr] ...)
+--   | ROW (expr, expr [, expr] ...)
+--   | (subquery)
+--   | EXISTS (subquery)
+--   | {identifier expr}
+--   | match_expr
+--   | case_expr
+--   | interval_expr
+
+CREATE TABLE tbool(a BOOL);
+DESCRIBE tbool;
+INSERT INTO tbool(a) VALUES(TRUE),(FALSE);
+
+SELECT * FROM tbool WHERE a IS UNKNOWN;
+
 END -- 9.5 Expression Syntax 
+
 BEGIN -- 9.6 Comment Syntax 
+
+
+
 END -- 9.6 Comment Syntax 
+
 END -- 9 Language Structure 
