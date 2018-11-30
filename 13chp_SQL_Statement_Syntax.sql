@@ -106,7 +106,8 @@ trigger_event: { INSERT | UPDATE | DELETE }
 
 END -- 13.1.19 CREATE TRIGGER Syntax
 
-BEGIN -- 13.1.20 CREATE VIEW Syntax
+BEGIN -- 13.1.20 CREATE VIEW Syntax ok
+
 
 CREATE
     [OR REPLACE]
@@ -156,21 +157,31 @@ SELECT mycol FROM v;
 SET @@sql_mode='ANSI_QUOTES';
 SELECT "mycol" FROM v;
 
+
 END -- 13.1.20 CREATE VIEW Syntax
 
-BEGIN -- 13.1.21 DROP DATABASE Syntax
+BEGIN -- 13.1.21 DROP DATABASE Syntax ok
+
+DROP {DATABASE | SCHEMA} [IF EXISTS] db_name
 
 END -- 13.1.21 DROP DATABASE Syntax
 
-BEGIN -- 13.1.22 DROP EVENT Syntax
+BEGIN -- 13.1.22 DROP EVENT Syntax ok
+
+DROP EVENT [IF EXISTS] event_name
 
 END -- 13.1.22 DROP EVENT Syntax
 
-BEGIN -- 13.1.23 DROP FUNCTION Syntax
+BEGIN -- 13.1.23 DROP FUNCTION Syntax ok
 
 END -- 13.1.23 DROP FUNCTION Syntax
 
 BEGIN -- 13.1.24 DROP INDEX Syntax
+
+DROP [ONLINE|OFFLINE] INDEX index_name ON tbl_name
+
+DROP INDEX `PRIMARY` ON t;
+-- The ONLINE and OFFLINE keywords are available only in NDB Cluster
 
 END -- 13.1.24 DROP INDEX Syntax
 
