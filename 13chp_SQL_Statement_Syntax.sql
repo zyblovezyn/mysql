@@ -1,6 +1,6 @@
 BEGIN -- 13 SQL Statement Syntax
 
-BEGIN -- 13.1 Data Definition Statements
+BEGIN -- 13.1 Data Definition Statements ok
 
 BEGIN -- 13.1.1 ALTER DATABASE Syntax
 
@@ -176,7 +176,7 @@ BEGIN -- 13.1.23 DROP FUNCTION Syntax ok
 
 END -- 13.1.23 DROP FUNCTION Syntax
 
-BEGIN -- 13.1.24 DROP INDEX Syntax
+BEGIN -- 13.1.24 DROP INDEX Syntax ok
 
 DROP [ONLINE|OFFLINE] INDEX index_name ON tbl_name
 
@@ -185,39 +185,83 @@ DROP INDEX `PRIMARY` ON t;
 
 END -- 13.1.24 DROP INDEX Syntax
 
-BEGIN -- 13.1.25 DROP LOGFILE GROUP Syntax
+BEGIN -- 13.1.25 DROP LOGFILE GROUP Syntax ok
+
+DROP LOGFILE GROUP logfile_group
+    ENGINE [=] engine_name
+
 
 END -- 13.1.25 DROP LOGFILE GROUP Syntax
 
-BEGIN -- 13.1.26 DROP PROCEDURE and DROP FUNCTION Syntax
+BEGIN -- 13.1.26 DROP PROCEDURE and DROP FUNCTION Syntax ok
+
+DROP {PROCEDURE | FUNCTION} [IF EXISTS] sp_name
 
 END -- 13.1.26 DROP PROCEDURE and DROP FUNCTION Syntax
 
-BEGIN -- 13.1.27 DROP SERVER Syntax
+BEGIN -- 13.1.27 DROP SERVER Syntax ok
+
+DROP SERVER [IF EXISTS] server_name;
 
 END -- 13.1.27 DROP SERVER Syntax
 
-BEGIN -- 13.1.28 DROP TABLE Syntax
+BEGIN -- 13.1.28 DROP TABLE Syntax ok
+
+DROP [TEMPORARY] TABLE [IF EXISTS] tbl_name [.tbl_name] ... [RESTRICT|CASCADE]
 
 END -- 13.1.28 DROP TABLE Syntax
 
-BEGIN -- 13.1.29 DROP TABLESPACE Syntax
+BEGIN -- 13.1.29 DROP TABLESPACE Syntax ok
+
+DROP TABLESPACE tablespace_name ENGINE[=] engine_name;
+
+-- DROP TABLESPACE is useful only with Disk Data storage for NDB Cluster. 
 
 END -- 13.1.29 DROP TABLESPACE Syntax
 
-BEGIN -- 13.1.30 DROP TRIGGER Syntax
+BEGIN -- 13.1.30 DROP TRIGGER Syntax ok
+
+DROP TRIGGER [IF EXISTS] [shceme_name.]trigger_name;
+
+-- Triggers for a table are also dropped if you drop the table.
 
 END -- 13.1.30 DROP TRIGGER Syntax
 
-BEGIN -- 13.1.31 DROP VIEW Syntax
+BEGIN -- 13.1.31 DROP VIEW Syntax ok
+
+DROP VIEW [IF EXISTS] view_name [,view_name] [RESTRICT|CASCADE]
 
 END -- 13.1.31 DROP VIEW Syntax
 
-BEGIN -- 13.1.32 RENAME TABLE Syntax
+BEGIN -- 13.1.32 RENAME TABLE Syntax ok
+
+RENAME TABLE old_tbl TO new_tbl[,tbl_name2 TO new_tbl_name2] ...
+
+RENAME TABLE old_table TO new_table;
+-- That statement is equivalent to the following ALTER TABLE statement:
+ALTER TABLE old_table RENAME new_table;
+
+-- it can rename multiple tables whitin a single statement.
+RENAME TABLE old_tbl1 TO new_tbl1,
+	     old_tbl2 TO new_tbl2,
+	     old_tbl3 TO new_tbl3;
+
+-- You can use RENAME TABLE to move a table from one database to another:
+RENAME TABLE schema_old.old_tbl TO schema_new.new_tbl
+
+-- If a table has triggers, attempts to rename the table into a different database fail with a Trigger in wrong schema (ER_TRG_IN_WRONG_SCHEMA) error.
+-- 
+-- To rename TEMPORARY tables, RENAME TABLE does not work. Use ALTER TABLE instead.
+-- 
+-- RENAME TABLE works for views, except that views cannot be renamed into a different database.
 
 END -- 13.1.32 RENAME TABLE Syntax
 
 BEGIN -- 13.1.33 TRUNCATE TABLE Syntax
+
+TRUNCATE [TABLE] tbl_name
+
+-- TRUNCATE TABLE empties a table completely. It requires the DROP privilege.
 
 END -- 13.1.33 TRUNCATE TABLE Syntax
 
