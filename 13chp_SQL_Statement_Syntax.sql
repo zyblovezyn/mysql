@@ -269,23 +269,91 @@ END -- 13.1 Data Definition Statements
 
 BEGIN -- 13.2 Data Manipulation Statements
 
-BEGIN -- 13.2.1 CALL Syntax
+BEGIN -- 13.2.1 CALL Syntax ok
 
 END -- 13.2.1 CALL Syntax
 
-BEGIN -- 13.2.2 DELETE Syntax
+BEGIN -- 13.2.2 DELETE Syntax ok
 
 END -- 13.2.2 DELETE Syntax
 
-BEGIN -- 13.2.3 DO Syntax
+BEGIN -- 13.2.3 DO Syntax ok
 
 END -- 13.2.3 DO Syntax
 
-BEGIN -- 13.2.4 HANDLER Syntax
+BEGIN -- 13.2.4 HANDLER Syntax ok
 
 END -- 13.2.4 HANDLER Syntax
 
 BEGIN -- 13.2.5 INSERT Syntax
+
+INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
+    [INTO] tbl_name
+    [(col_name [, col_name] ...)]
+    {VALUES | VALUE} (value_list) [, (value_list)] ...
+    [ON DUPLICATE KEY UPDATE assignment_list]
+
+INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
+    [INTO] tbl_name
+    SET assignment_list
+    [ON DUPLICATE KEY UPDATE assignment_list]
+
+INSERT [LOW_PRIORITY | HIGH_PRIORITY] [IGNORE]
+    [INTO] tbl_name
+    [(col_name [, col_name] ...)]
+    SELECT ...
+    [ON DUPLICATE KEY UPDATE assignment_list]
+
+VALUE:
+    {expr | DEFAULT}
+
+value_list:
+    VALUE [, VALUE] ...
+
+assignment:
+    col_name = VALUE
+
+assignment_list:
+    assignment [, assignment] ...
+
+-- if both the column list and the values list are empty,insert creates
+-- a row with each column set to its default value.
+INSERT INTO tbl_name() VALUES();
+
+INSERT INTO tbl_name(col1,col2) VALUES(15, col1*2); -- right
+
+INSERT INTO tbl_name(col1,col2) VALUES(col2*2,15);-- not legal,because col2 after col1
+
+INSERT INTO tbl_name(a,b,c) VALUES(1,2,3),(4,5,6),(7,8,9)
+
+-- value is synonym for values in this context.
+
+SELECT ROW_COUNT();
+SELECT mysql_info();
+
+BEGIN -- 13.2.5.1 INSERT ... SELECT Syntax
+
+INSERT [LOW_PRIORITY | HIGH_PRIORITY] [IGNORE]
+    [INTO] tbl_name
+    [(col_name [, col_name] ...)]
+    SELECT ...
+    [ON DUPLICATE KEY UPDATE assignment_list]
+
+VALUE:
+    {expr | DEFAULT}
+
+assignment:
+    col_name = VALUE
+
+assignment_list:
+    assignment [, assignment] ...
+    
+
+INSERT INTO tbl_name(field1) SELECT tbl_name1.filed1 FROM tbl_name1 
+WHERE tbl_name1.filed1>100
+
+
+BEGIN -- 13.2.5.1 INSERT ... SELECT Syntax
 
 END -- 13.2.5 INSERT Syntax
 
