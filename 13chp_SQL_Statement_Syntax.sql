@@ -331,7 +331,7 @@ INSERT INTO tbl_name(a,b,c) VALUES(1,2,3),(4,5,6),(7,8,9)
 SELECT ROW_COUNT();
 SELECT mysql_info();
 
-BEGIN -- 13.2.5.1 INSERT ... SELECT Syntax
+BEGIN -- 13.2.5.1 INSERT ... SELECT Syntax ok
 
 INSERT [LOW_PRIORITY | HIGH_PRIORITY] [IGNORE]
     [INTO] tbl_name
@@ -380,6 +380,65 @@ END -- 13.2.10 Subquery Syntax
 BEGIN -- 13.2.11 UPDATE Syntax
 
 END -- 13.2.11 UPDATE Syntax
+
+END -- 13.2 Data Manipulation Statements
+
+BEGIN -- 13.2.5.2 INSERT ... ON DUPLICATE KEY UPDATE Syntax ok
+
+-- the two statement have similar effect.if column a is declared as unique and conctains the value 1
+INSERT INTO t1 (a,b,c) VALUES(1,2,3)
+ON DUPLICATE KEY UPDATE c+=1;
+
+UPDATE t1 SET c+=1 WHERE a=1;
+
+
+INSERT INTO t1(a,b) 
+SELECT c,d FROM t2
+UNION
+SELECT e,f FROM t3
+ON DUPLICATE KEY UPDATE b=b+c;
+
+INSERT INTO t1(a,b)
+SELECT * FROM 
+(SELECT c,d FROM t2 UNION SELECT e,f FROM t3) AS dt
+ON DUPLICATE KEY UPDATE b=b+c;
+
+
+END -- 13.2.5.2 INSERT ... ON DUPLICATE KEY UPDATE Syntax
+
+BEGIN -- 13.2.5.3 INSERT DELAYED Syntax ok
+
+
+END -- 13.2.5.3 INSERT DELAYED Syntax
+
+
+END -- 13.2.5 INSERT Syntax
+
+
+BEGIN -- 13.2.6 LOAD DATA INFILE Syntax
+
+END -- 13.2.6 LOAD DATA INFILE Syntax
+
+BEGIN -- 13.2.7 LOAD XML Syntax
+
+END -- 13.2.7 LOAD XML Syntax
+
+BEGIN -- 13.2.8 REPLACE Syntax
+
+END -- 13.2.8 REPLACE Syntax
+
+BEGIN -- 13.2.9 SELECT Syntax
+
+END -- 13.2.9 SELECT Syntax
+
+BEGIN -- 13.2.10 Subquery Syntax
+
+END -- 13.2.10 Subquery Syntax
+
+BEGIN -- 13.2.11 UPDATE Syntax
+
+END -- 13.2.11 UPDATE Syntax
+
 
 END -- 13.2 Data Manipulation Statements
 
