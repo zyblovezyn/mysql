@@ -452,13 +452,77 @@ assignment:
 assignment_list:
     assignment [, assignment] ...
     
-    
+ 
+DROP TABLE IF EXISTS test     
+CREATE TABLE test(
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	DATA VARCHAR(64) DEFAULT NULL,
+	ts TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY(id)
+);
 
+REPLACE INTO test VALUES(1,'Old','2014-08-20 18:47:00');
+SELECT * FROM test;
+REPLACE INTO test VALUES(1,'New','2014-08-20 18:47:42');
+
+
+CREATE TABLE test2(
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	DATA VARCHAR(64) NOT NULL,
+	ts TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY(id,ts)
+);
+
+REPLACE INTO test2 VALUES(1,'old','2014-08-20 18:47:00');
+REPLACE INTO test2 VALUES(1,'new','2014-08-20 18:47:42');
+
+SELECT * FROM test2;
 
 
 END -- 13.2.8 REPLACE Syntax
 
 BEGIN -- 13.2.9 SELECT Syntax
+
+SELECT
+    [ALL | DISTINCT | DISTINCTROW ]
+      [HIGH_PRIORITY]
+      [STRAIGHT_JOIN]
+      [SQL_SMALL_RESULT] [SQL_BIG_RESULT] [SQL_BUFFER_RESULT]
+      [SQL_CACHE | SQL_NO_CACHE] [SQL_CALC_FOUND_ROWS]
+    select_expr [, select_expr ...]
+    [FROM table_references
+    [WHERE where_condition]
+    [GROUP BY {col_name | expr | POSITION}
+      [ASC | DESC], ... [WITH ROLLUP]]
+    [HAVING where_condition]
+    [ORDER BY {col_name | expr | POSITION}
+      [ASC | DESC], ...]
+    [LIMIT {[OFFSET,] ROW_COUNT | ROW_COUNT OFFSET OFFSET}]
+    [PROCEDURE procedure_name(argument_list)]
+    [INTO OUTFILE 'file_name'
+        [CHARACTER SET charset_name]
+        export_options
+      | INTO DUMPFILE 'file_name'
+      | INTO var_name [, var_name]]
+    [FOR UPDATE | LOCK IN SHARE MODE]]
+
+SELECT 1+1;
+
+SELECT 1+1 FROM DUAL;
+
+BEGIN -- 13.2.9.1 SELECT ... INTO Syntax
+
+END -- 13.2.9.1 SELECT ... INTO Syntax
+
+BEGIN -- 13.2.9.2 JOIN Syntax
+
+END -- 13.2.9.2 JOIN Syntax
+
+BEGIN -- 13.2.9.3 UNION Syntax
+
+END -- 13.2.9.3 UNION Syntax
+
+
 
 END -- 13.2.9 SELECT Syntax
 
