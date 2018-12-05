@@ -425,6 +425,37 @@ END -- 13.2.7 LOAD XML Syntax
 
 BEGIN -- 13.2.8 REPLACE Syntax
 
+
+REPLACE [LOW_PRIORITY | DELAYED]
+    [INTO] tbl_name
+    [(col_name [, col_name] ...)]
+    {VALUES | VALUE} (value_list) [, (value_list)] ...
+
+REPLACE [LOW_PRIORITY | DELAYED]
+    [INTO] tbl_name
+    SET assignment_list
+
+REPLACE [LOW_PRIORITY | DELAYED]
+    [INTO] tbl_name
+    [(col_name [, col_name] ...)]
+    SELECT ...
+
+VALUE:
+    {expr | DEFAULT}
+
+value_list:
+    VALUE [, VALUE] ...
+
+assignment:
+    col_name = VALUE
+
+assignment_list:
+    assignment [, assignment] ...
+    
+    
+
+
+
 END -- 13.2.8 REPLACE Syntax
 
 BEGIN -- 13.2.9 SELECT Syntax
