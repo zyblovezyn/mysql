@@ -285,7 +285,7 @@ BEGIN -- 13.2.4 HANDLER Syntax ok
 
 END -- 13.2.4 HANDLER Syntax
 
-BEGIN -- 13.2.5 INSERT Syntax
+BEGIN -- 13.2.5 INSERT Syntax ok
 
 INSERT [LOW_PRIORITY | DELAYED | HIGH_PRIORITY] [IGNORE]
     [INTO] tbl_name
@@ -423,7 +423,7 @@ BEGIN -- 13.2.7 LOAD XML Syntax
 
 END -- 13.2.7 LOAD XML Syntax
 
-BEGIN -- 13.2.8 REPLACE Syntax
+BEGIN -- 13.2.8 REPLACE Syntax ok
 
 
 REPLACE [LOW_PRIORITY | DELAYED]
@@ -510,11 +510,136 @@ SELECT 1+1;
 
 SELECT 1+1 FROM DUAL;
 
-BEGIN -- 13.2.9.1 SELECT ... INTO Syntax
+BEGIN -- 13.2.9.1 SELECT ... INTO Syntax ok
+
+SELECT CONCAT(last_name,'，',first_name) AS fullname
+FROM mytable ORDER BY fullname;
+
+SET @a=1;
+PREPARE stmt FROM 'select * from tbl limit ?';
+EXECUTE stmt USING @a;
+
+SET @skip=1;SET @numrows=5;
+PREPARE stmt FROM 'select * from tbl limit ?,?';
+EXECUTE stmt @skip,@numrows;
+
+(SELECT ... LIMIT 1) LIMIT 2; -- 显示结果为2
+
+SELECT id,DATE INTO @x,@y FROM test.t1 LIMIT 1;
+
+SELECT a,b,a+b OUTFILE 'C:\Users\zhang\Desktop\文档\outfile.sql'
+FIELDS TERMINATED BY ' ' OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+FROM test_table;
+
+
 
 END -- 13.2.9.1 SELECT ... INTO Syntax
 
 BEGIN -- 13.2.9.2 JOIN Syntax
+
+table_references:
+    escaped_table_reference [, escaped_table_reference] ...
+
+escaped_table_reference:
+    table_reference
+  | { OJ table_reference }
+
+table_reference:
+    table_factor
+  | join_table
+
+table_factor:
+    tbl_name [[AS] alias] [index_hint_list]
+  | table_subquery [AS] alias
+  | ( table_references )
+
+join_table:
+    table_reference [INNER | CROSS] JOIN table_factor [join_condition]
+  | table_reference STRAIGHT_JOIN table_factor
+  | table_reference STRAIGHT_JOIN table_factor ON conditional_expr
+  | table_reference {LEFT|RIGHT} [OUTER] JOIN table_reference join_condition
+  | table_reference NATURAL [{LEFT|RIGHT} [OUTER]] JOIN table_factor
+
+join_condition:
+    ON conditional_expr
+  | USING (column_list)
+
+index_hint_list:
+    index_hint [, index_hint] ...
+
+index_hint:
+    USE {INDEX|KEY}
+      [FOR {JOIN|ORDER BY|GROUP BY}] ([index_list])
+  | IGNORE {INDEX|KEY}
+      [FOR {JOIN|ORDER BY|GROUP BY}] (index_list)
+  | FORCE {INDEX|KEY}
+      [FOR {JOIN|ORDER BY|GROUP BY}] (index_list)
+
+index_list:
+    index_name [, index_name] ...
+    
+    
+SELECT * FROM t1 LEFT JOIN (t4,t2,t3)
+ON (t2.a=t1.a AND t3.b=t1.b AND t4.c=t1.c);
+
+SELECT * FROM t1 LEFT JOIN (t2 CROSS JOIN t3 CROSS JOIN t4)
+ON (t2.a=t1.a AND t3.b=t1.b AND t4.c=t1.c);
+
+-- in  mysql join ,cross join ,inner join are syntactic equivalents
+
+SELECT t1.name,t2.salary FROM emplyee AS t1 INNER JOIN info AS t2 ON t1.name=t2.name;
+
+SELECT t1.name,t2.salary FROM employee t1 INNER JOIN t2 ON t1.name=t2.name;
+
+SELECT * FROM (SELECT 1,2,3) AS t1;
+
+SELECT left_tbl.* FROM left_tbl LEFT JOIN right_tbl ON left_tbl.id=right_tbl.id WHERE right_tbl.id IS NULL;
+
+SHOW CREATE TABLE test2;
+
+CREATE TABLE a(
+id INT NOT NULL AUTO_INCREMENT,
+ts TIMESTAMP NOT NULL 
+DEFAULT CURRENT_TIMESTAMP 
+ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY(id));
+
+CREATE TABLE b(
+id INT NOT NULL AUTO_INCREMENT,
+ts TIMESTAMP NOT NULL 
+DEFAULT CURRENT_TIMESTAMP 
+ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY(id));
+
+CREATE TABLE c(
+id INT NOT NULL AUTO_INCREMENT,
+ts TIMESTAMP NOT NULL 
+DEFAULT CURRENT_TIMESTAMP 
+ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY(id));
+
+SELECT * FROM c
+DELETE FROM c WHERE id<5;
+
+INSERT INTO a(ts) VALUES(CURRENT_TIMESTAMP);
+INSERT INTO b(ts) VALUES(CURRENT_TIMESTAMP);
+
+INSERT INTO c(ts) VALUES(CURRENT_TIMESTAMP);
+
+SELECT * FROM a,b;
+
+SELECT * FROM a INNER JOIN b ON a.id=b.`id`;
+
+SELECT * FROM a LEFT JOIN b ON a.id=b.id;
+
+SELECT * FROM a LEFT JOIN b USING(id);
+
+SELECT * FROM a LEFT JOIN b ON a.id=b.id LEFT JOIN c ON b.id=c.id
+
+SELECT * FROM a NATURAL JOIN b;
+
+SELECT * FROM a JOIN b;
 
 END -- 13.2.9.2 JOIN Syntax
 
