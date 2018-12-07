@@ -481,7 +481,7 @@ SELECT * FROM test2;
 
 END -- 13.2.8 REPLACE Syntax
 
-BEGIN -- 13.2.9 SELECT Syntax
+BEGIN -- 13.2.9 SELECT Syntax ok
 
 SELECT
     [ALL | DISTINCT | DISTINCTROW ]
@@ -534,9 +534,9 @@ FROM test_table;
 
 
 
-END -- 13.2.9.1 SELECT ... INTO Syntax
+END -- 13.2.9.1 SELECT ... INTO Syntax 
 
-BEGIN -- 13.2.9.2 JOIN Syntax
+BEGIN -- 13.2.9.2 JOIN Syntax ok 
 
 table_references:
     escaped_table_reference [, escaped_table_reference] ...
@@ -648,7 +648,7 @@ SELECT REPEAT('a',1) UNION SELECT REPEAT('b',10);
 
 END -- 13.2.9.2 JOIN Syntax
 
-BEGIN -- 13.2.9.3 UNION Syntax
+BEGIN -- 13.2.9.3 UNION Syntax ok
 
 END -- 13.2.9.3 UNION Syntax
 
@@ -657,6 +657,94 @@ END -- 13.2.9.3 UNION Syntax
 END -- 13.2.9 SELECT Syntax
 
 BEGIN -- 13.2.10 Subquery Syntax
+
+CREATE TABLE t1(s1 INT);
+INSERT INTO t1 VALUES(1);
+CREATE TABLE t2(s1 INT);
+INSERT INTO t2 VALUES(2);
+
+SELECT (SELECT s1 FROM t2) FROM t1;
+
+SELECT UPPER((SELECT s1 FROM t1)) FROM t2;
+
+SELECT * FROM t1 WHERE column1=(SELECT MAX(column2) FROM t2);
+
+SELECT s1 FROM t1 WHERE s1>ANY(SELECT s1 FROM t2);
+
+SELECT s1 FROM t1 WHERE s1=ANY(SELECT s1 FROM t2);
+SELECT s1 FROM t1 WHERE s1 IN (SELECT s1 FROM t2);
+
+-- The word SOME is an alias for ANY. Thus, these two statements are the same:
+
+SELECT s1 FROM t1 WHERE s1 <> ANY  (SELECT s1 FROM t2);
+SELECT s1 FROM t1 WHERE s1 <> SOME (SELECT s1 FROM t2);
+
+SELECT s1 FROM t1 WHERE s1 > ALL(SELECT s1 FROM t2);
+
+-- not in is alias for <> all.thus ,these two statements are the same.
+SELECT s1 FROM t1 WHERE s1 <> ALL (SELECT s1 FROM t2);
+SELECT s1 FROM t1 WHERE s1 NOT IN (SELECT s1 FROM t2);
+
+SELECT * FROM t1
+WHERE (col1,col2)=(SELECT col3,col4 FROM t2 WHERE id=10);
+
+SELECT * FROM t1
+WHERE ROW(col1,col2)=(SELECT col3,col4 FROM t2 WHERE id=10);
+
+-- The expressions (1,2) and ROW(1,2) are sometimes called row constructors. The two are equivalent
+
+SELECT * FROM t1 WHERE ROW(1)=(SELECT column1 FROM t2);
+
+SELECT * FROM t1 WHERE (column1,column2)=(1,1);
+
+SELECT * FROM t1 column1=1 AND column2=1;
+
+SELECT column1,column2,column3 FROM t1 WHERE 
+(column1,column2,column3) IN
+(SELECT column1,column2,column3 FROM t2);
+
+SELECT * FROM t1 WHERE column1=ANY(SELECT column1 FROM t2 WHERE t2.column2=t1.column2);
+
+SELECT column1 FROM t1 AS X(
+	WHERE x.column1=(SELECT column1 FROM t2 AS X
+		WHERE x.column1=(SELECT column1 FROM t3
+			WHERE x.column2=t3.column1)
+);
+
+DROP TABLE t1;
+CREATE TABLE t1 (s1 INT,s2 CHAR(5),s3 FLOAT);
+
+INSERT INTO t1 VALUES (1,'1',1.0);
+INSERT INTO t1 VALUES (2,'2',2.0);
+
+SELECT sb1,sb2,sb3
+FROM (SELECT s1 AS sb1,s2 AS sb2,s3*2 AS sb3 FROM t1) AS sb
+WHERE sb1>1;
+
+SELECT AVG(SUM(s1)) FROM t1 GROUP BY s1;
+
+SELECT AVG(sum_column1) FROM
+(SELECT SUM(s1) AS sum_column1 FROM t1 GROUP BY s1) AS t1
+
+
+CREATE DATABASE d1;
+USE d1;
+CREATE TABLE t1(c1 INT);
+CREATE TABLE t2(c1 INT);
+
+CREATE FUNCTION f1(p1 INT) RETURN INT
+BEGIN
+	INSERT INTO t2 VALUES(p1);
+	RETURN p1;
+RETURN p1;
+END;
+
+SELECT * FROM t2;
+
+EXPLAIN SELECT * FROM t2 \G;
+
+-- 13.2.10.9 Subquery Errors
+
 
 END -- 13.2.10 Subquery Syntax
 
