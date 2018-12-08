@@ -414,7 +414,6 @@ END -- 13.2.5.3 INSERT DELAYED Syntax
 
 END -- 13.2.5 INSERT Syntax
 
-
 BEGIN -- 13.2.6 LOAD DATA INFILE Syntax
 
 END -- 13.2.6 LOAD DATA INFILE Syntax
@@ -656,7 +655,7 @@ END -- 13.2.9.3 UNION Syntax
 
 END -- 13.2.9 SELECT Syntax
 
-BEGIN -- 13.2.10 Subquery Syntax
+BEGIN -- 13.2.10 Subquery Syntax ok
 
 CREATE TABLE t1(s1 INT);
 INSERT INTO t1 VALUES(1);
@@ -709,7 +708,7 @@ SELECT column1 FROM t1 AS X(
 	WHERE x.column1=(SELECT column1 FROM t2 AS X
 		WHERE x.column1=(SELECT column1 FROM t3
 			WHERE x.column2=t3.column1)
-);
+));
 
 DROP TABLE t1;
 CREATE TABLE t1 (s1 INT,s2 CHAR(5),s3 FLOAT);
@@ -743,25 +742,113 @@ SELECT * FROM t2;
 
 EXPLAIN SELECT * FROM t2 \G;
 
--- 13.2.10.9 Subquery Errors
+SELECT * FROM t1 WHERE t1.column1 IN (SELECT column1 FROM t2 ORDER BY column1);
+
+SELECT * FROM t1 WHERE t1.column1 IN (SELECT DISTINCT column1 FROM t2);
+
+SELECT * FROM t1 WHERE EXISTS (SELECT * FROM t2 LIMIT 1);
+
+SELECT DISTINCT column1 FROM t1 WHERE t1.column1 IN (SELECT column1 FROM t2);
+
+SELECT DISTINCT t1.column1 FROM t1,t2 WHERE t1.column1=t2.column2;
+
+SELECT * FROM t1
+     WHERE s1 IN (SELECT s1 FROM t1 UNION ALL SELECT c1 FROM t2);
+     
+SELECT * FROM t1
+     WHERE s1 IN (SELECT s1 FROM t1) OR s1 IN (SELECT s1 FROM t2);
+     
+SELECT (SELECT column1+5 FROM t1) FROM t2;
+
+SELECT (SELECT column1 FROM t1)+5 FROM t2;
+
+SELECT * FROM t1
+	WHERE (column1,column2) IN (SELECT column1,column2 FROM t2);
+	
+SELECT * FROM t1
+	WHERE EXISTS (SELECT * FROM t2 WHERE t2.column1=t1.column1 AND t1.column2=t2.column2);
+	
+WHERE 5> ALL(SELECT X FROM t);
+might be treated BY the optimizer LIKE this:
+WHERE 5>(SELECT MAX(X) FROM t);
+
+SELECT * FROM t1 WHERE id IN (SELECT id FROM t2);
+
+SELECT DISTINCT t1.* FROM t1,t2 WHERE t1.id=t2.id;
+
+SELECT * FROM t1 WHERE id NOT IN (SELECT id FROM t2);
+
+SELECT * FROM t1 WHERE NOT EXISTS (SELECT id FROM t2 WHERE t1.id=t2.id);
+
+SELECT tbl1.* FROM tbl1 LEFT JOIN tbl2 ON tbl1.id=tbl2.id
+WHERE tbl2.id IS NULL;
 
 
+ 
 END -- 13.2.10 Subquery Syntax
 
-BEGIN -- 13.2.11 UPDATE Syntax
+BEGIN -- 13.2.11 UPDATE Syntax ok
+Single-TABLE syntax:
+
+UPDATE [LOW_PRIORITY] [IGNORE] table_reference
+    SET assignment_list
+    [WHERE where_condition]
+    [ORDER BY ...]
+    [LIMIT ROW_COUNT]
+
+VALUE:
+    {expr | DEFAULT}
+
+assignment:
+    col_name = VALUE
+
+assignment_list:
+    assignment [, assignment] ...
+
+
+Multiple-TABLE syntax:
+
+UPDATE [LOW_PRIORITY] [IGNORE] table_references
+    SET assignment_list
+    [WHERE where_condition]
+    
+UPDATE t1 SET col1=col1+1;
+
+UPDATE t1 SET col1=col1+1,col2=col1;
+
+UPDATE items,MONTH SET items.price=month.price WHERE items.id=month.id;
+
 
 END -- 13.2.11 UPDATE Syntax
-
 
 END -- 13.2 Data Manipulation Statements
 
 BEGIN -- 13.3 Transactional and Locking Statements
 
-BEGIN -- 13.3.1 START TRANSACTION, COMMIT, and ROLLBACK Syntax
+START TRANSACTION [WITH CONSISTENT SNAPSHOT]
+-- BEGIN [WORK]
+-- COMMIT [WORK] [AND [NO] CHAIN] [[NO] RELEASE]
+-- ROLLBACK [WORK] [AND [NO] CHAIN] [[NO] RELEASE]
+-- SET autocommit = {0 | 1}
+-- 
+-- 
+-- start transaction;
+-- select @A:=sum(salary) from tbl1 where type=1;
+-- update tbl2 set summary=@A where type=1;
+-- commit;
+
+START TRANSACTION WITH CONSISTENT SNAPSHOT;
+
+-- To disable autocommit mode explicitly,use the fllowing statement.
+
+SET autocommit=0;
+
+
+BEGIN -- 13.3.1 START TRANSACTION, COMMIT, and ROLLBACK Syntax ok
 
 END -- 13.3.1 START TRANSACTION, COMMIT, and ROLLBACK Syntax
 
-BEGIN -- 13.3.2 Statements That Cannot Be Rolled Back
+BEGIN -- 13.3.2 Statements That Cannot Be Rolled Back ok
 
 END -- 13.3.2 Statements That Cannot Be Rolled Back
 
