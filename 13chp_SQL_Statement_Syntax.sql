@@ -866,6 +866,21 @@ END -- 13.3.4 SAVEPOINT, ROLLBACK TO SAVEPOINT, and RELEASE SAVEPOINT Syntax
 
 BEGIN -- 13.3.5 LOCK TABLES and UNLOCK TABLES Syntax
 
+LOCK TABLES
+    tbl_name [[AS] alias] lock_type
+    [, tbl_name [[AS] alias] lock_type] ...
+
+lock_type: {
+    READ [LOCAL]
+  | [LOW_PRIORITY] WRITE
+}
+
+UNLOCK TABLES
+
+-- Another use for UNLOCK TABLES is to release the global read lock acquired with the FLUSH TABLES WITH READ LOCK statement
+
+
+
 END -- 13.3.5 LOCK TABLES and UNLOCK TABLES Syntax
 
 BEGIN -- 13.3.6 SET TRANSACTION Syntax
