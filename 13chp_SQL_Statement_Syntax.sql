@@ -977,9 +977,53 @@ END -- 13.7.4 SET Syntax
 
 BEGIN -- 13.7.5 SHOW Syntax
 
+SHOW MASTER LOGS;
+
+SHOW BINLOG EVENTS;
+
+SHOW CHARACTER SET;
+
+SHOW COLLATION;
+
+SHOW FULL COLUMNS FROM t1;
+
+DESCRIBE t1;
+
+SHOW CREATE TABLE test.a;
+
+SHOW  TABLE STATUS FROM test;
+
+SHOW INDEX FROM a;
+
+SHOW CONTRIBUTORS;
+
+SHOW CREATE DATABASE test;
+
+SHOW CREATE SCHEMA test;
+
+SHOW CREATE FUNCTION test.comp;
+
+SHOW CREATE PROCEDURE test.p;
+
+SET @@sql_mode='ANSI';
+CREATE VIEW test.view1 AS SELECT 'a' || 'b' AS col1;
+
+SHOW CREATE VIEW test.view1;
+
+SHOW ENGINE INNODB STATUS;
+
+SHOW COUNT(*) ERRORS;
+
+SELECT @@error_count;
+
+SELECT CURRENT_USER(),SCHEMA();
+
 END -- 13.7.5 SHOW Syntax
 
 BEGIN -- 13.7.6 Other Administrative Statements
+
+
+
 
 END -- 13.7.6 Other Administrative Statements
 
