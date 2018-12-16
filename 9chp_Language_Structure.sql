@@ -133,13 +133,81 @@ END -- 9.1 Literal Values
 
 BEGIN -- 9.2 Schema Object Names ok
 
+-- Database, table, and column names cannot end with space characters. 
+
+SELECT * FROM `select` WHERE `select`.id>100;
+
+CREATE TABLE "test"(col INT);
+
+SET @@sql_mode='ANSI_QUOTES';
+CREATE TABLE "test"(col INT);
+
+SHOW COLUMNS FROM test;
+
+SET @@sql_mode='';
+
+CREATE TABLE `a``b`(`c"d` INT);
+
+SHOW COLUMNS FROM `a``b`;
+
+SELECT 1 AS `one`,2 AS 'two';
+
+
+-- Identifier Type Maximum Length (characters)
+-- 
+-- Database 64 (NDB storage engine: 63) 
+-- 
+-- Table 64 (NDB storage engine: 63) 
+-- 
+-- Column 64 
+-- 
+-- Index 64 
+-- 
+-- Constraint 64 
+-- 
+-- Stored Program 64 
+-- 
+-- View 64 
+-- 
+-- Tablespace 64 
+-- 
+-- Server 64 
+-- 
+-- Log File Group 64 
+-- 
+-- Alias 256 (see exception following table) 
+-- 
+-- Compound Statement Label 16 
+-- 
+-- User-Defined Variable 64 
+-- 
+-- Resource Group 64 
+
+-- Aliases for column names in CREATE VIEW statements are checked 
+-- against the maximum column length of 64 characters 
+-- (not the maximum alias length of 256 characters). 
+
 BEGIN -- 9.2.1 Identifier Qualifiers ok
 
+DROP TABLE t1;
+CREATE TABLE t1(i INT);
 
+DROP TABLE mydata_on_mysql_v8.t1;
+CREATE TABLE mydata_on_mysql_v8.t1(i INT);
+
+SELECT I FROM T1;
 
 END -- 9.2.1 Identifier Qualifiers 
 
 BEGIN -- 9.2.2 Identifier Case Sensitivity ok
+
+-- Although database, table, and trigger names are not case sensitive 
+-- on some platforms, you should not refer to one of these 
+-- using different cases within the same statement. 
+-- The following statement would not work because it refers to 
+-- a table both as my_table and as MY_TABLE: 
+SELECT * FROM my_table WHERE MY_TABLE.col=1;
+
 
 SELECT * FROM my_table WHERE my_table.col=1;
 
@@ -171,8 +239,6 @@ END -- 9.2 Schema Object Names
 
 BEGIN -- 9.3 Keywords and Reserved Words ok
 
-
-
 END -- 9.3 Keywords and Reserved Words 
 
 BEGIN -- 9.4 User-Defined Variables ok
@@ -180,6 +246,17 @@ BEGIN -- 9.4 User-Defined Variables ok
 -- You can store a value in a user-defined variable in one statement and refer to it later in another statement. This enables you to pass values from one statement to another.
 -- 
 -- User variables are written as @var_name
+
+SET @v1=X'41';
+SET @v2=X'41'+0;
+SET @v3=CAST(X'41' AS UNSIGNED);
+
+SELECT @v1,@v2,@v3;
+
+SET @v1=b'1000001';
+SET @v2=b'1000001'+0;
+SET @v3=CAST(b'1000001' AS UNSIGNED);
+SELECT @v1,@v2,@v3;
 
 SET @t1=1,@t2=2,@t3:=4;
 SELECT @t1,@t2,@t3,@t4:=@t1+@t2+@t3; -- 在set以外的语句赋值需要使用:=
@@ -202,7 +279,10 @@ SELECT @a;
 SELECT @a,@a:=@a+1;
 
 SET @a='test';
-SELECT @a,(@a:=20)
+SELECT @a,(@a:=20);
+
+SELECT * FROM t;
+CREATE TABLE t (i INT);INSERT INTO t VALUES(1);
 
 -- If the value of a user variable is selected in a result set, it is returned to the client as a string.
 -- 
