@@ -100,3 +100,10 @@ INSERT INTO test1 VALUES
  SET @@global.event_scheduler=0;
  
  
+ SELECT * FROM test1
+ 
+ SELECT COUNT(*) FROM test1
+ SELECT COUNT(1) FROM test1
+ 
+ SELECT SQL_CALC_FOUND_ROWS a1 FROM test1 LIMIT 3;
+ SELECT FOUND_ROWS();
