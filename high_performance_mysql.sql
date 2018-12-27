@@ -37,6 +37,25 @@ SELECT * FROM post WHERE post.id IN (1,2,3,4)
 -- MySQL根据优化器生成的执行计划，调用存储引擎的API来执行查询。
 -- 将结果返回给客户端。
 
+-- 7.2.2 视图对性能的影响
+
+CREATE VIEW public.employeeinfo AS 
+	SELECT firstname,lastname
+	FROM private.employeeinfo;
+GRANT SELECT ON public.* TO public.user;
+
+SELECT CONNECTION_ID()
+
+CREATE VIEW temp.cost_per_day_8 AS 
+SELECT DATE(ts) AS DAY,SUM(cost) AS cost
+FROM logs.cost
+GROUP BY DAY;
+SELECT c.day,c.cost,s.sales
+FROM temp.cost_per_day_8 AS c
+INNER JOIN sales.sales_per_day AS s USING(DAY);
+DROP VIEW temp.cost_per_day_8;
+
+
 
 
 
