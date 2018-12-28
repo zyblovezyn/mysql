@@ -390,3 +390,18 @@ BEGIN -- 9.6 Comment Syntax
 END -- 9.6 Comment Syntax 
 
 END -- 9 Language Structure 
+
+
+BEGIN -- test
+
+SET @v1=X'41';
+SELECT @v1;
+
+SET @v2=X'41'+0;
+SELECT @v2;
+
+SET @v3=CAST(X'41' AS UNSIGNED);
+SELECT @v3;
+
+
+END -- test

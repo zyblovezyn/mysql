@@ -57,7 +57,87 @@ DROP VIEW temp.cost_per_day_8;
 
 
 
+BEGIN -- 7.5 cursor
 
+DELIMITER //
+
+DROP PROCEDURE IF EXISTS mydata_on_mysql_v8.bad_cursor //
+
+CREATE PROCEDURE bad_cursor () loopout :
+BEGIN
+      DECLARE film_id INT;
+      DECLARE f CURSOR FOR
+      SELECT
+            film_id
+      FROM
+            mydata_on_mysql_v8.files;
+      OPEN f;
+      FETCH f INTO film_id;
+      CLOSE f;
+END loopout //
+
+DELIMITER;
+
+SHOW STATUS WHERE Variable_name='tmp_table_size';
+
+
+
+SELECT * FROM world.country
+
+SHOW COLUMNS FROM world.country
+
+DELIMITER //
+
+DROP PROCEDURE IF EXISTS mydata_on_mysql_v8.sp_testvaliable //
+
+CREATE PROCEDURE mydata_on_mysql_v8.sp_testvaliable (code1 CHAR(3)) loopout :
+BEGIN
+	 SET @code=code1;
+      SET @sql = 'select * from world.country where code=?';
+      PREPARE stmt FROM @sql;
+      EXECUTE stmt USING @code;
+END loopout //
+
+DELIMITER ;
+
+
+CALL mydata_on_mysql_v8.sp_testvaliable('AFG');
+SELECT * FROM information_schema.tables
+
+
+
+DROP PROCEDURE IF EXISTS mydata_on_mysql_v8.optimize_tables;
+DELIMITER //
+CREATE PROCEDURE mydata_on_mysql_v8.optimize_tables(db_name VARCHAR(64))
+BEGIN
+	DECLARE t VARCHAR(64);
+	DECLARE done INT DEFAULT 0;
+	DECLARE c CURSOR FOR 
+		SELECT table_name FROM information_schema.tables
+		WHERE table_schema=db_name AND table_type='BASE TABLE';
+	DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done=1;
+	OPEN c;
+	tables_loop:LOOP
+	
+		FETCH c INTO t;
+		IF done THEN
+			LEAVE tables_loop;
+		END IF;
+		SET @stmt_text=CONCAT('optimize table ',db_name,'.',t);-- select @stmt_text;
+		PREPARE stmt FROM @stmt_text;
+		EXECUTE stmt;
+		DEALLOCATE PREPARE stmt;	
+	END LOOP;
+	CLOSE c;
+END //
+DELIMITER ;
+
+
+
+CALL mydata_on_mysql_v8.optimize_tables('mydata_on_mysql_v8');
+
+
+END -- 7.5
 
 
 
