@@ -137,6 +137,27 @@ DELIMITER ;
 CALL mydata_on_mysql_v8.optimize_tables('mydata_on_mysql_v8');
 
 
+
+
+SHOW TABLES
+
+CREATE TABLE 2018_12_31(
+ a CHAR(1) NOT NULL,
+ b CHAR(1) NOT NULL,
+ c  TINYINT UNSIGNED NOT NULL
+);
+
+INSERT INTO 2018_12_31 VALUES('A','a',1),('A','a',1),('A','b',1),('B','a',1),('B','b',1)
+
+SELECT * FROM 2018_12_31
+
+SET @@sql_mode='';
+
+SELECT t.a,t.b,SUM(t.c) AS total 
+FROM 2018_12_31 t GROUP BY t.a,t.b 
+ORDER BY t.order_no DESC;
+
+
 END -- 7.5
 
 
