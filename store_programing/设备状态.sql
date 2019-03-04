@@ -1,0 +1,1 @@
+SELECT * FROM base.td_dictionary WHERE bz ='设备状态'
