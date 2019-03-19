@@ -790,7 +790,7 @@ BEGIN -- examples
 -- The following query selects all rows with a date_col value from within 
 -- the last 30 days:
 SELECT * FROM tbl_name WHERE DATE_SUB(CURDATE(),INTERVAL 30 DAY)<=data_col;
-
+#subtract  减去
 SELECT DAYOFMONTH('2011-11-00'),MONTH('2005-00-00');
 
 SELECT DATE_ADD('2006-05-00',INTERVAL 1 DAY);

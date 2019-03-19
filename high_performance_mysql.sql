@@ -161,6 +161,44 @@ ORDER BY t.order_no DESC;
 END -- 7.5
 
 
+select conv(16,10,16);
+select conv(16,10,2);
+select conv(16,10,8);
+
+select hex(16);
+select oct(16);
+select bin(16);
+
+drop table if exists test;
+create table test(
+	id int unsigned not null auto_increment,
+	data varchar(64) default null,
+	ts timestamp not null default current_timestamp on update current_timestamp,
+	primary key(id)
+	);
+
+replace into test values(1,'Old',now());
+replace into test values(1,'New',now());
+
+select * from test;
+
+drop table if exists test2;
+create table test2(
+	id int unsigned not null auto_increment,
+	data varchar(64) default null,
+	ts timestamp not null default current_timestamp on update current_timestamp,
+	primary key(id,ts));
+	
+replace into test2 values(1,'old',current_timestamp());
+REPLACE INTO test2 values(1,'new',CURRENT_TIMESTAMP());
+
+select * from test2;
+
+# default current_timestamp on update current_timestamp;
+
+select round(12.33321,2);
+
+select round(13.123456789,4);
 
 
 
