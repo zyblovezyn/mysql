@@ -1,3 +1,16 @@
+-- 第三章 shecema与数据类型优化
+        CREATE TABLE enum_table(
+          e ENUM('fish','dog','apple') NOT NULL
+        );
+        INSERT INTO enum_table(e) VALUES('dog'),('apple'),('fish');
+	SELECT e+0 FROM enum_table;
+
+
+SELECT a,a+0 FROM bittest
+
+SELECT CONCAT(LEFT(NOW(),14),'00:00') -INTERVAL 12 HOUR;
+
+CREATE TABLE a_copy LIKE a;
 
 -- 第五章 创建高性能索引
 
