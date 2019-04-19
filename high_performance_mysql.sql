@@ -12,6 +12,8 @@ SELECT CONCAT(LEFT(NOW(),14),'00:00') -INTERVAL 12 HOUR;
 
 CREATE TABLE a_copy LIKE a;
 
+SELECT RAND()*100
+
 -- 第五章 创建高性能索引
 
 -- 5.5.3
