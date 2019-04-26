@@ -310,8 +310,50 @@ PARTITION p2 VALUES LESS THAN(2000)(
 # 在list分区 必须指定那个分区存放null值
 #  任何分区函数都将含有null的记录返回0
 
+
+# ----------------- 第5章-----------------
+#索引
+
+# innodb 支持的索引有 B+索引(blance) 全文索引 哈希索引
+# B+树索引并不能找到一个给定键值的具体行。B+树索引能找到的只是被查找数据行所在的页。
+# 然后数据库通过把页读入到内存，再在内存中进行查找，最后得到要查找的数据。
+
+CREATE TABLE buy_log(
+ userid INT UNSIGNED NOT NULL,
+ buy_date DATE
+ );
+ 
+ INSERT INTO buy_log VALUES( 1,'2009-01-01');
+ INSERT INTO buy_log VALUES( 2,'2009-01-01');
+ INSERT INTO buy_log VALUES( 3,'2009-01-01'); 
+ INSERT INTO buy_log VALUES( 1,'2009-02-01'); 
+ INSERT INTO buy_log VALUES( 3,'2009-02-01'); 
+ INSERT INTO buy_log VALUES( 1,'2009-03-01'); 
+ INSERT INTO buy_log VALUES( 1,'2009-04-01');
+ 
+ ALTER TABLE buy_log ADD KEY(userid);
+ ALTER TABLE buy_log ADD KEY(userid,buy_date);
+ 
+ 
+ EXPLAIN SELECT * FROM buy_log WHERE userid=2;
+ 
+ EXPLAIN SELECT * FROM buy_log WHERE userid>3 AND userid<5 ORDER BY buy_date LIMIT 3;
+
 	
-  
+ SELECT @@read_rnd_buffer_size -- 键值的缓冲区大小
+ SET @@optimizer_switch='mrr=on,mrr_cost_based=off'; # 开启multi-range read
+ 
+ # index condition pushdown (ICP)优化
+ # 之前的MySQL数据库版本不支持IndexConditionPushdown，
+ # 当进行索引查询时，首先根据索引来查找记录，
+ # 然后再根据WHERE条件来过滤记录。在支持IndexConditionPushdown后，
+ # MySQL数据库会在取出索引的同时，判断是否可以进行WHERE条件的过滤，
+ # 也就是将WHERE的部分过滤操作放在了存储引擎层。在某些查询下，
+ # 可以大大减少上层SQL层对记录的索取（fetch），从而提高数据库的整体性能。
+
+SET @@optimizer_switch = "index_condition_pushdown=on"
+
+SELECT @@optimizer_switch;
         
         
         
